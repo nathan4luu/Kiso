@@ -4,6 +4,15 @@ PostrgreSQL/Express.js/Reactjs/Nodejs app designed to create flashcards to study
 
 ### Running locally
 
+If any new development dependancies have been installed, make sure to run the following commands:
+
+```bash
+    cd client
+    npm install
+    cd ../server
+    npm install
+```
+
 The development server for the frontend (client) can be started with the following command:
 
 ```bash
@@ -14,7 +23,7 @@ The development server for the frontend (client) can be started with the followi
 The development server for the backend (server) can be started with the following command:
 
 ```bash
-    cd client
+    cd server
     npm start
 ```
 

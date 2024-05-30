@@ -31,14 +31,14 @@ Initialize a .env file in the server directory with the required values.
 If you need to run migrations, you can do so with the following command:
 
 ```bash
-    cd server (if not currently in server directory)
+    cd server #(if not currently in server directory)
     npm run db:migrate
 ```
 
 If you need to inspect the databse, you can do so with the following command:
 
 ```bash
-    cd server (if not currently in server directory)
+    cd server #(if not currently in server directory)
     npm run db:studio
 ```
 

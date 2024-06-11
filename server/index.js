@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const corsOptions = {
-  origin: "*",
+  origin: "http://localhost:3000",
   credentials: true,
   optionSuccessStatus: 200,
 };
@@ -40,8 +40,8 @@ app.get(
   }
 );
 
-app.get("/session/user", isLoggedIn, (req,res) => {
-    res.json(req.user)
+app.get('/user', (req,res) => {
+    res.send(req.user)
 })
 
 app.get("/auth/failure", (req, res) => {

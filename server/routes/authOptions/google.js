@@ -16,6 +16,7 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, cb) => {
       console.log(profile);
+      console.log('logged in');
       const profileEmail = profile._json.email;
       const profileName = profile._json.name;
 

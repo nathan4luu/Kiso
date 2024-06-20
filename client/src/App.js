@@ -1,7 +1,6 @@
 import "./App.css";
 import Router from "./components/Router";
 import UserContext from "./components/UserContext";
-import Test from "./pages/Test";
 import fetchUserData from "./components/AuthSession";
 import axios from "axios";
 import { useState, useEffect, } from "react";

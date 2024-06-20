@@ -3,6 +3,7 @@ import {
   Routes,
   Route,
   Outlet,
+  Navigate,
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
@@ -10,30 +11,23 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Home from "../pages/Home";
 import Dashboard from "../pages/Dashboard";
-import Test from "../pages/Test";
-import UserContext from "./UserContext";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { LoginSuccess } from "../pages/LoginSuccess";
+import { useUser } from "../api/user";
 
 export default function Router() {
-  const [user, setUser] = useState();
+  const user = useUser();
+  const isAuthenticated = user.data !== null && user.data !== undefined;
+  
+  console.log("isauth: " + isAuthenticated)
 
-  async function fetchData() {
-    await axios
-      .get("http://localhost:4040/user", {
-        withCredentials: true,
-      })
-      .then((response) => {
-        if (response.data) {
-          setUser(response.data._json.email);
-        }
-      })
-      .catch((err) => console.log(err));
-  }
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const ProtectedRoute = ({ children }) => {
+    if (!isAuthenticated) {
+      return <Navigate to="/" replace />;
+    }
+    return children;
+  };
 
   const Layout = () => {
     return (
@@ -53,15 +47,20 @@ export default function Router() {
   return (
     <>
       <BrowserRouter>
-        <UserContext.Provider value={[user, setUser]}>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/test" element={<Test />} />
-            </Route>
-          </Routes>
-        </UserContext.Provider>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
+          <Route path="/login/success" element={<LoginSuccess />}></Route>
+        </Routes>
       </BrowserRouter>
     </>
   );

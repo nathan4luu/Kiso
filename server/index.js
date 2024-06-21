@@ -42,21 +42,22 @@ app.get(
 
 app.get("/user", isLoggedIn, async (req, res) => {
   const userEmail = req.user._json.email;
-  const { userId, userName } = await prisma.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: {
       email: userEmail,
     },
     select: {
       id: true,
       name: true,
+      email: true,
     },
   });
-  req.session.user = req.user;
-  res.json(req.user);
+  req.session.user = user;
+  res.json(user);
 });
 
 app.get("/auth/failure", (req, res) => {
-  res.send("something went wrong.. ");
+  res.redirect("http://localhost:3000")
 });
 app.get("/test", isLoggedIn, (req, res) => {
   res.send(req.user);

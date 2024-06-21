@@ -6,7 +6,7 @@ export default function Dashboard() {
     return (
       <>
         <h1>
-          <b>Welcome, {user.data.displayName} you are logged in.</b>
+          <b>Welcome, {user.data.name} you are logged in.</b>
         </h1>
         <p>This is EduCards</p>
       </>

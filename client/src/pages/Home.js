@@ -1,5 +1,4 @@
-import { redirect, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useUser } from "../api/user";
 
@@ -10,7 +9,7 @@ export default function Home() {
     if (user.data) {
       navigate("/dashboard");
     }
-  }, [user]);
+  }, [user, navigate]);
 
   if (user.data === null) {
     return (

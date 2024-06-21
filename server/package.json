@@ -9,6 +9,7 @@
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio"
   },
+  "proxy": "http://localhost:3000",
   "keywords": [],
   "author": "",
   "license": "ISC",

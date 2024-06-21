@@ -4,23 +4,19 @@ import {
   Route,
   Outlet,
   Navigate,
-  createBrowserRouter,
-  RouterProvider,
 } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import Home from "../pages/Home";
 import Dashboard from "../pages/Dashboard";
-import { useState, useEffect } from "react";
-import axios from "axios";
 import { LoginSuccess } from "../pages/LoginSuccess";
 import { useUser } from "../api/user";
 
 export default function Router() {
   const user = useUser();
   const isAuthenticated = user.data !== null && user.data !== undefined;
-  
-  console.log("isauth: " + isAuthenticated)
+
+  console.log("isauth: " + isAuthenticated);
 
   const ProtectedRoute = ({ children }) => {
     if (!isAuthenticated) {

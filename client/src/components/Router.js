@@ -31,8 +31,8 @@ export default function Router() {
         <div className="justify-center space-y-4 h-screen">
           <Header />
           <div className="flex w-full  md:justify-center">
-            <div className="border w-[1200px]">
-              <Outlet />
+            <div className="w-[1200px]">
+                <Outlet />
             </div>
           </div>
           <Footer />

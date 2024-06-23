@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        shojumaru: ['Shojumaru', 'cursive']
+        shojumaru: ['Shojumaru', 'cursive'],
       }
     },
   },

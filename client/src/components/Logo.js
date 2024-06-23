@@ -3,12 +3,12 @@ export default function Logo() {
     <div className="border-solid rounded-3xl px-4 py-1">
       <a
         href="/dashboard"
-        className="flex items-center space-x-3 rtl:space-x-reverse"
+        className="flex items-center  font-shojumaru space-x-3 rtl:space-x-reverse text-3xl font-bold text-white whitespace-nowrap dark:text-white select-none"
       >
-        <h1 className="font-shojumaru self-center text-3xl font-bold text-purple-600 whitespace-nowrap dark:text-white select-none hidden md:block">
+        <h1 className=" self-center  hidden md:block">
           Kiso
         </h1>
-        <h1 className="font-shojumaru self-center text-3xl font-bold text-purple-600 whitespace-nowrap dark:text-white select-none md:hidden">
+        <h1 className=" self-center md:hidden">
           K
         </h1>
       </a>

@@ -23,7 +23,7 @@ export default function Header() {
   //console.log("isLoggedIn", isLoggedIn)
   return (
     <>
-      <nav className="mx-auto bg-[#6B46C1] border-gray-200 w-screen border dark:bg-gray-900">
+      <nav className="mx-auto bg-[#6B46C1] w-screen dark:bg-gray-900">
         <div className="max-w-full flex items-center justify-items-center justify-center px-1 py-2">
           <div className="flex items-center flex-1">
             <Logo />

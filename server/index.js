@@ -43,7 +43,7 @@ app.get(
 
 app.get("/user", isLoggedIn, async (req, res) => {
   const userEmail = req.user._json.email;
-  const user = await prisma.user.findUnique({
+  let user = await prisma.user.findUnique({
     where: {
       email: userEmail,
     },
@@ -53,6 +53,7 @@ app.get("/user", isLoggedIn, async (req, res) => {
       email: true,
     },
   });
+  user.pfp = req.user._json.picture
   req.session.user = user;
   res.json(user);
 });

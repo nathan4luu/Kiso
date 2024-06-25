@@ -1,111 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useUser } from "../api/user";
 import DeckCard from "../components/DeckCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import ProfileCard from "../components/ProfileCard";
+import DeckCarousel from "../components/DeckCarousel";
 
 export default function Dashboard() {
   const user = useUser();
+
   const [startIndex, setStartIndex] = useState(0);
   const itemsPerPage = 3;
-  const decks = [
+  const profiles = [
     {
       id: 1,
-      title: "First",
-      description:
-        "This flashcard set covers fundamental concepts and topics in discrete mathematics, essential for computer science and mathematical reasoning.",
-      termCount: 10,
-      author: "Nathan Luu",
+      account: "Nathan Luu",
       profilePhoto:
         "https://lh3.googleusercontent.com/a/ACg8ocID3K2wYQno8i_NGSuReI6ZqAOZI1iBAa6LiW8UeNHaXw87xw=s96-c",
+      deckCount: 10,
     },
     {
-      id: 2,
-      title: "Second",
-      description: "CSO",
-      termCount: 24,
-      author: "Bob Smith",
+      id: 1,
+      account: "Nathan Luu",
       profilePhoto:
         "https://lh3.googleusercontent.com/a/ACg8ocID3K2wYQno8i_NGSuReI6ZqAOZI1iBAa6LiW8UeNHaXw87xw=s96-c",
+      deckCount: 20,
     },
     {
-      id: 3,
-      title: "Third",
-      description: "This is not cheating",
-      termCount: 50,
-      author: "Jane Doe",
+      id: 1,
+      account: "Nathan Luu",
       profilePhoto:
         "https://lh3.googleusercontent.com/a/ACg8ocID3K2wYQno8i_NGSuReI6ZqAOZI1iBAa6LiW8UeNHaXw87xw=s96-c",
+      deckCount: 30,
     },
     {
-      id: 4,
-      title: "Fourth",
-      description:
-        "This flashcard set covers fundamental concepts and topics in discrete mathematics, essential for computer science and mathematical reasoning.",
-      termCount: 10,
-      author: "Nathan Luu",
+      id: 1,
+      account: "Nathan Luu",
       profilePhoto:
         "https://lh3.googleusercontent.com/a/ACg8ocID3K2wYQno8i_NGSuReI6ZqAOZI1iBAa6LiW8UeNHaXw87xw=s96-c",
-    },
-    {
-      id: 5,
-      title: "Fifth",
-      description: "CSO",
-      termCount: 24,
-      author: "Bob Smith",
-      profilePhoto:
-        "https://lh3.googleusercontent.com/a/ACg8ocID3K2wYQno8i_NGSuReI6ZqAOZI1iBAa6LiW8UeNHaXw87xw=s96-c",
-    },
-    {
-      id: 6,
-      title: "Sixth",
-      description: "This is not cheating",
-      termCount: 50,
-      author: "Jane Doe",
-      profilePhoto:
-        "https://lh3.googleusercontent.com/a/ACg8ocID3K2wYQno8i_NGSuReI6ZqAOZI1iBAa6LiW8UeNHaXw87xw=s96-c",
-    },
-    {
-      id: 4,
-      title: "Seventh",
-      description:
-        "This flashcard set covers fundamental concepts and topics in discrete mathematics, essential for computer science and mathematical reasoning.",
-      termCount: 10,
-      author: "Nathan Luu",
-      profilePhoto:
-        "https://lh3.googleusercontent.com/a/ACg8ocID3K2wYQno8i_NGSuReI6ZqAOZI1iBAa6LiW8UeNHaXw87xw=s96-c",
-    },
-    {
-      id: 5,
-      title: "Eigth",
-      description: "CSO",
-      termCount: 24,
-      author: "Bob Smith",
-      profilePhoto:
-        "https://lh3.googleusercontent.com/a/ACg8ocID3K2wYQno8i_NGSuReI6ZqAOZI1iBAa6LiW8UeNHaXw87xw=s96-c",
-    },
-    {
-      id: 6,
-      title: "Ninth",
-      description: "This is not cheating",
-      termCount: 50,
-      author: "Jane Doe",
-      profilePhoto:
-        "https://lh3.googleusercontent.com/a/ACg8ocID3K2wYQno8i_NGSuReI6ZqAOZI1iBAa6LiW8UeNHaXw87xw=s96-c",
+      deckCount: 40,
     },
   ];
-
-  const next = () => {
-    const newIndex = Math.min(
-      startIndex + itemsPerPage,
-      decks.length - itemsPerPage
-    );
-    setStartIndex(newIndex);
-  };
-
-  const prev = () => {
-    const newIndex = Math.max(startIndex - itemsPerPage, 0);
-    setStartIndex(newIndex);
-  };
 
   if (user.status === "success") {
     return (
@@ -113,6 +48,10 @@ export default function Dashboard() {
         <h1 className="text-3xl font-medium py-4">
           See what others are studying
         </h1>
+
+        <DeckCarousel />
+
+        <h1 className="text-3xl pt-6 font-medium py-4">Popular accounts</h1>
         <div className="relative w-full overflow-hidden group">
           <div
             className="flex transition-transform duration-500 ease-in-out"
@@ -120,49 +59,20 @@ export default function Dashboard() {
               transform: `translateX(-${startIndex * (100 / itemsPerPage)}%)`,
             }}
           >
-            {decks
+            {profiles
               //.slice(startIndex, startIndex + itemsPerPage)
-              .map((deck, index) => (
-                <div className={`relative w-1/3 px-2 flex-none`}>
-                  <DeckCard
-                    key={deck.id} // Adding key prop for React
-                    id={deck.id}
-                    title={deck.title}
-                    description={deck.description}
-                    termCount={deck.termCount}
-                    author={deck.author}
-                    profilePhoto={deck.profilePhoto}
+              .map((profile, index) => (
+                <div key={index} className={`relative w-1/4 px-2 flex-none`}>
+                  <ProfileCard
+                    id={profile.id}
+                    account={profile.account}
+                    profilePhoto={profile.profilePhoto}
+                    deckCount={profile.deckCount}
                   />
                 </div>
               ))}
           </div>
-          <div className="flex justify-center pt-2 gap-2 invisible group-hover:visible">
-            <button
-              disabled={startIndex <= 0}
-              className={`flex items-center justify-center rounded-full w-8 h-8 p-2 bg-gray-100 ${
-                startIndex > 0
-                  ? "hover:bg-[#6B46C1] hover:text-white"
-                  : "invisible"
-              }`}
-              onClick={prev}
-            >
-              <ChevronLeft />
-            </button>
-            <button
-              disabled={startIndex >= decks.length - itemsPerPage}
-              className={`flex items-center justify-center rounded-full w-8 h-8 p-2 bg-gray-100 ${
-                startIndex < decks.length - itemsPerPage
-                  ? "hover:bg-[#6B46C1] hover:text-white"
-                  : "invisible"
-              }`}
-              onClick={next}
-            >
-              <ChevronRight />
-            </button>
-          </div>
         </div>
-
-        <p>This is EduCards</p>
       </div>
     );
   }

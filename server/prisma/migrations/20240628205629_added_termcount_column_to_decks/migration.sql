@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Deck" ADD COLUMN     "termCount" INTEGER NOT NULL DEFAULT 0;

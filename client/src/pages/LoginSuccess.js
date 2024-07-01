@@ -20,5 +20,4 @@ export function LoginSuccess() {
     </div>
   );
 
-  //className="font-shojumaru self-center text-3xl font-bold text-white whitespace-nowrap dark:text-purple-800">
 }

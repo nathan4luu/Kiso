@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import auth from "./routes/auth.js";
-import protect from "./routes/protected.js";
+import protect from "./routes/api.js";
 import passport from "passport";
 import session from "express-session";
 import { PrismaClient } from "@prisma/client";
@@ -87,7 +87,7 @@ app.post("/logout",isLoggedIn, (req, res) => {
 
 // Routes
 app.use("/auth", auth);
-app.use("/protected", 
+app.use("/api", 
   protect//ed
 )
 

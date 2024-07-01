@@ -12,20 +12,27 @@ import Dashboard from "../pages/Dashboard";
 import { LoginSuccess } from "../pages/LoginSuccess";
 import { useUser } from "../api/user";
 import ProtectedHeader from "./ProtectedHeader";
+import UserLibrary from "../pages/UserLibrary";
+import DeckDetails from "../pages/DeckDetails";
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
+import SearchResults from "./SearchResults";
 
 export default function Router() {
   const user = useUser();
+
   const isAuthenticated = user.data !== null && user.data !== undefined;
 
   console.log("isauth: " + isAuthenticated);
+  console.log("user: " + user.data)
 
   const PublicLayout = () => {
     return (
       <>
-        <div className="justify-center space-y-4 h-screen">
+        <div className="flex flex-col justify-between min-h-screen overflow-x-hidden">
           <Header />
-          <div className="flex w-full  md:justify-center">
-            <div className="w-[1200px]">
+          <div className="flex bg-[#ebe6f5] justify-center flex-1 w-full overflow-hidden p-4">
+            <div className="shadow-lg rounded-lg bg-white w-full max-w-[1200px] min-w-[800px] px-4 md:px-6 ">
               <Outlet />
             </div>
           </div>
@@ -40,10 +47,10 @@ export default function Router() {
     }
     return (
       <>
-        <div className="justify-center space-y-4 h-screen">
+        <div className="flex flex-col justify-between min-h-screen overflow-x-hidden">
           <ProtectedHeader />
-          <div className="flex w-full  md:justify-center">
-            <div className="w-[1200px]">
+          <div className="flex justify-center flex-1 w-full overflow-hidden">
+            <div className="w-full max-w-[1200px] min-w-[600px] px-4 md:px-6 ">
               <Outlet />
             </div>
           </div>
@@ -57,12 +64,16 @@ export default function Router() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<PublicLayout />}>
-            <Route path="/" element={<Home />} />
+            <Route exact path="/" element={<Home />} />
           </Route>
 
-          <Route path="/" element={<ProtectedLayout />}>
+          <Route path="/" element={<PublicLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/user/:userId/library" element={<UserLibrary />} />
+            <Route path="/decks/:deckId" element={<DeckDetails />} />
+            <Route path="/search" element={<SearchResults />} />
           </Route>
+          
 
           <Route path="/login/success" element={<LoginSuccess />}></Route>
         </Routes>

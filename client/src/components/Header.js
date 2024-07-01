@@ -3,9 +3,11 @@ import { useLogout, useUser } from "../api/user";
 import { useQueryClient } from "@tanstack/react-query";
 import LoginModal from "./LoginModal";
 import Logo from "./Logo";
+import ProtectedHeader from "./ProtectedHeader";
 
 export default function Header() {
-
+const user = useUser();
+if (user.data !== null && user.isSuccess) return <ProtectedHeader />
   return (
     <>
       <nav className="mx-auto bg-[#6B46C1] w-screen dark:bg-gray-900">

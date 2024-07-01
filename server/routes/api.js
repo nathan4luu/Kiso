@@ -9,6 +9,30 @@ router.get("/decks", async (req, res) => {
   res.json(allDecks);
 });
 
+router.get('/decks/:deckId', async (req, res) => {
+    const { deckId } = req.params;
+
+    try {
+        const deck = await prisma.deck.findUnique({
+          where: { id: deckId },
+          include: {
+            user: true,
+            cards: true
+          }
+        });
+    
+        if (!deck) {
+          return res.status(404).json({ message: 'Deck not found' });
+        }
+    
+        res.json(deck);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server Error' });
+      }
+
+})
+
 router.get("users/:userId/decks", async (req, res) => {
   const userId = parseInt(req.params.userId);
 

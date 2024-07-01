@@ -1,31 +1,58 @@
 import { Link } from "react-router-dom";
+import { Star } from "lucide-react";
+import { useState } from "react";
+import { useUser } from "../api/user";
 
 export default function DeckCard({
   id,
   title,
   description,
   termCount,
-  author,
+  user,
+  userId,
   profilePhoto,
+  favorited,
+  currentUser,
 }) {
+  const [isActive, setIsActive] = useState(favorited || false);
+
+  const toggleState = (e) => {
+    e.preventDefault();
+    setIsActive(!isActive);
+  };
+
   return (
-    <div className="p-2 h-52 rounded-lg border-b-4 border-gray-100 bg-gray-50 hover:bg-gray-100 hover:border-b-4 hover:border-[#6B46C1] hover:drop-shadow-lg">
-      <Link to={"/decks/" + id}>
-      <h1 className="text-2xl font-semibold py-1 line-clamp-1 hover:text-[#6B46C1]">
-          {title}
-        </h1>
+    <div className=" p-2 h-52 rounded-lg border-b-4 border-gray-100 bg-gray-50 hover:bg-gray-100 hover:border-b-4 hover:border-[#6B46C1] hover:shadow-xl">
+      <Link to={"/decks/" + id} className="block">
+        <div className="flex gap-2 items-center ">
+          <h1 className="text-2xl font-semibold py-1 line-clamp-1 hover:text-[#6B46C1]">
+            {title}
+          </h1>
+          {currentUser !== userId && (
+            <div onClick={toggleState}>
+              <Star
+                className="h-6 w-6 "
+                fill={`${isActive ? "#FFD700" : "transparent"}`}
+                color={`${isActive ? "#FFD700" : "gray"}`}
+              />
+            </div>
+          )}
+        </div>
         <div className="inline-block rounded-full bg-gray-200 px-2 py-1 text-xs font-semibold">
           {termCount} terms
         </div>
-
         <p className="pt-3 line-clamp-2 h-16">{description}</p>
         <div className="pt-6 flex gap-2 items-center">
-          <img
-            src={profilePhoto}
-            alt="Profile"
-            className="rounded-full w-6 h-6"
-          ></img>
-          <p className="hover:underline hover:text-[#6B46C1]">{author}</p>
+          <span className="hover:underline hover:text-[#6B46C1]">
+            <Link to={`/user/${userId}/library`} className="flex gap-2">
+              <img
+                src={profilePhoto}
+                alt="Profile"
+                className="rounded-full w-6 h-6"
+              ></img>
+              {user}
+            </Link>
+          </span>
         </div>
       </Link>
     </div>

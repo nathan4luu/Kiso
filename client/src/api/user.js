@@ -7,7 +7,6 @@ async function getUser() {
     const response = await axios.get("http://localhost:4040/user", {
       withCredentials: true,
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     if (error.response && error.response.status === 401) {
@@ -19,11 +18,15 @@ async function getUser() {
   }
 }
 
-export const useUser = () =>
-  useQuery({
+export const useUser = () => {
+  const queryClient = useQueryClient();
+  return useQuery({
     queryKey: ["user"],
     queryFn: getUser,
+    enabled:
+      queryClient.getQueryData("user") !== null,
   });
+};
 
 async function logout() {
   await axios.post(
@@ -42,8 +45,9 @@ export const useLogout = () => {
     mutationFn: logout,
     onSuccess: () => {
       queryClient.setQueryData(["user"], null);
-      navigate("/");
+
       console.log("logged out");
+      navigate("/");
     },
   });
 };

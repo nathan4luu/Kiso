@@ -16,7 +16,7 @@ export default function DeckCarousel({currentUser}) {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4040/api/decks/clxz5b8ve0000tc8i7ue3nv3d"
+          "http://localhost:4040/api/decks/clxz5b8ve0000tc8i7ue3nv3d", {withCredentials: true,}
         ); 
         setData(response.data); 
         setLoading(false);
@@ -39,7 +39,7 @@ export default function DeckCarousel({currentUser}) {
         user: data.user.name,
         userId: data.user.id,
         profilePhoto: data.user.profilePhoto,
-        favorited: false,
+        favorited: data.FavoriteDeck.length > 0,
       },
       {
         id: 2,

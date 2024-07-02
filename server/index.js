@@ -7,7 +7,7 @@ import passport from "passport";
 import session from "express-session";
 import { PrismaClient } from "@prisma/client";
 
-function isLoggedIn(req, res, next) {
+export function isLoggedIn(req, res, next) {
   req.user ? next() : res.sendStatus(401);
 }
 
@@ -53,13 +53,13 @@ app.get("/user", isLoggedIn, async (req, res) => {
       email: true,
     },
   });
-  user.pfp = req.user._json.picture
+  user.pfp = req.user._json.picture;
   req.session.user = user;
   res.json(user);
 });
 
 app.get("/auth/failure", (req, res) => {
-  res.redirect("http://localhost:3000")
+  res.redirect("http://localhost:3000");
 });
 app.get("/test", isLoggedIn, (req, res) => {
   res.send(req.user);
@@ -75,21 +75,22 @@ app.get("/logout", isLoggedIn, (req, res) => {
   });
 });
 
-app.post("/logout",isLoggedIn, (req, res) => {
+app.post("/logout", isLoggedIn, (req, res) => {
   req.logout((err) => {
     if (err) {
-      return res.sendStatus(500)
+      return res.sendStatus(500);
     }
   });
-  res.redirect('/');
+  res.redirect("/");
   console.log("logged out");
 });
 
 // Routes
 app.use("/auth", auth);
-app.use("/api", 
-  protect//ed
-)
+app.use(
+  "/api",
+  protect //ed
+);
 
 const port = process.env.PORT | 4040;
 const server = app.listen(port, () => {

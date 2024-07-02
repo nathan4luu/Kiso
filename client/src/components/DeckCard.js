@@ -43,16 +43,17 @@ export default function DeckCard({
         </div>
         <p className="pt-3 line-clamp-2 h-16">{description}</p>
         <div className="pt-6 flex gap-2 items-center">
-          <span className="hover:underline hover:text-[#6B46C1]">
-            <Link to={`/user/${userId}/library`} className="flex gap-2">
-              <img
-                src={profilePhoto}
-                alt="Profile"
-                className="rounded-full w-6 h-6"
-              ></img>
-              {user}
-            </Link>
-          </span>
+          <Link
+            to={`/user/${userId}/library/`}
+            className="flex gap-2 hover:underline hover:text-[#6B46C1]"
+          >
+            <img
+              src={profilePhoto}
+              alt="Profile"
+              className="rounded-full w-6 h-6"
+            ></img>
+            {user}
+          </Link>
         </div>
       </Link>
     </div>

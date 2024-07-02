@@ -78,7 +78,7 @@ export default function ProtectedHeader() {
                       <img
                         src={user.data.pfp}
                         alt="Profile"
-                        className="rounded-full w-12 h-12"
+                        className=" rounded-full w-10 h-10"
                       ></img>
                     </button>
                     {isOpen && (

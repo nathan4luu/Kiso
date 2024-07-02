@@ -69,7 +69,7 @@ export default function Router() {
 
           <Route path="/" element={<PublicLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/user/:userId/library" element={<UserLibrary />} />
+            <Route path="/user/:userId/library/:pageId?" element={<UserLibrary />} />
             <Route path="/decks/:deckId" element={<DeckDetails />} />
             <Route path="/search" element={<SearchResults />} />
           </Route>

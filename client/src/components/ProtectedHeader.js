@@ -4,10 +4,14 @@ import { useQueryClient } from "@tanstack/react-query";
 import LoginModal from "./LoginModal";
 import Logo from "./Logo";
 import { X, Library, Search } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SearchBar from "./SearchBar";
 
 export default function ProtectedHeader() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [clickOnButton, setClickOnButton] = useState(false);
+  const dropdownRef = useRef(null);
+
   const user = useUser();
 
   const navigate = useNavigate();
@@ -19,6 +23,12 @@ export default function ProtectedHeader() {
     logoutMutation.mutate();
     console.log(queryClient.isMutating && "mutating");
     navigate("/");
+  };
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+    if (!isOpen) {
+    }
   };
 
   return (
@@ -33,20 +43,20 @@ export default function ProtectedHeader() {
           </div>
           <div className="flex-1 px-4 py-1">
             <div
-              className="justify-end w-full  items-center md:block md:w-auto ml-auto justify-end self-center"
+              className="justify-end w-full items-center md:block md:w-auto ml-auto justify-end self-center"
               id="navbar-default"
             >
-              <ul className="font-medium flex justify-end items-center text-white md:p-0 mt-4 rounded-lg bg-transparent md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 dark:border-gray-700">
+              <ul className="font-medium flex justify-end items-center gap-2 text-white">
                 <li>
                   <Link
-                    to={`/user/${user.data.id}/library`}
+                    to={`/user/${user.data.id}/library/0`}
                     className="block py-2 px-3 flex rounded-lg hover:bg-white hover:text-[#6B46C1] dark:hover:bg-gray-800 dark:hover:text-[#6B46C1]"
                   >
                     <Library />
                     <div className="pl-1 line-clamp-1"> Your library</div>
                   </Link>
                 </li>
-                <li>
+                {/*<li>
                   <Link
                     className="block py-2 bg-white rounded-lg hover:bg-gray-200 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                     onClick={logout}
@@ -55,7 +65,49 @@ export default function ProtectedHeader() {
                       Log Out
                     </p>
                   </Link>
-                  <LoginModal />
+                </li>*/}
+                <li>
+                  <div className="relative flex items-center inline-block">
+                    <button
+                      type="button"
+                      id="profile-button"
+                      aria-expanded={isOpen}
+                      aria-haspopup="true"
+                      onClick={toggleDropdown}
+                    >
+                      <img
+                        src={user.data.pfp}
+                        alt="Profile"
+                        className="rounded-full w-12 h-12"
+                      ></img>
+                    </button>
+                    {isOpen && (
+                      <div
+                        ref={dropdownRef}
+                        className=" absolute mt-3 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-10 transition-opacity"
+                        style={{
+                          top: "100%",
+                          right: 0,
+                        }}
+                      >
+                        <div className="py-1">
+                          <a
+                            href="#"
+                            className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                          >
+                            Settings
+                          </a>
+                          <hr className="my-1" />
+                          <Link
+                            onClick={logout}
+                            className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                          >
+                            Logout
+                          </Link>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </li>
               </ul>
             </div>

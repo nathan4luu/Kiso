@@ -5,7 +5,7 @@ export default function SearchResults() {
 
     return (
         <>
-        Result's for {query}
+        Results for {query}
         </>
     )
 

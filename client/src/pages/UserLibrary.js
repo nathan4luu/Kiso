@@ -1,4 +1,4 @@
-import { redirect, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useUser } from "../api/user";
 import { useEffect, useState } from "react";
 import CurrentUserLibrary from "../components/CurrentUserLibrary";
@@ -7,19 +7,21 @@ export default function UserLibrary() {
   const { userId, pageId } = useParams();
   const num = parseInt(pageId);
   const isInvalidNum = isNaN(num) || num < 0 || num > 2;
-  const result = isInvalidNum ? 0 : num;
 
   const user = useUser();
   const navigate = useNavigate();
   const [isCurrentUser, setIsCurrentUser] = useState(false);
 
   useEffect(() => {
+    if (user.data === null) {
+      navigate("/");
+    }
     if (user.data && user.data.id === userId) {
       setIsCurrentUser(true);
       if (isInvalidNum) {
         navigate(`/user/${userId}/library/0`);
       }
-    } 
+    }
   }, [user.data, userId]);
 
   if (user.data && user.fetchStatus !== "fetching") {

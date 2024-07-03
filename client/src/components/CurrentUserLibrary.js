@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import FavoriteDecks from "./CurrentUserLibraryTabs/FavoriteDecks";
-import { useUser } from "../api/user";
+import YourDecks from "./CurrentUserLibraryTabs/YourDecks";
 
-export default function CurrentUserLibrary({ userId,  }) {
-  const { pageId } = useParams();
+export default function CurrentUserLibrary() {
+  const { pageId, userId } = useParams();
   const tabChoices = ["Your decks", "Recent activity", "Favorite decks"];
 
   const [activeTab, setActiveTab] = useState(tabChoices[pageId]);
@@ -37,8 +37,9 @@ export default function CurrentUserLibrary({ userId,  }) {
         </ul>
       </div>
       <div className="py-6">
+      <div className="p-2">
         {activeTab === "Your decks" && (
-          <p>Be the hero your study sessions need. Create your first deck!</p>
+          <YourDecks currentUserId={userId} />
         )}
         {activeTab === "Recent activity" && (
           <p>All quiet on the study front. Time to hit the books!</p>
@@ -46,6 +47,7 @@ export default function CurrentUserLibrary({ userId,  }) {
         {activeTab === "Favorite decks" && (
           <FavoriteDecks currentUserId={userId} />
         )}
+        </div>
       </div>
     </div>
   );

@@ -14,7 +14,13 @@ export function isLoggedIn(req, res, next) {
 const app = express();
 const prisma = new PrismaClient();
 
-app.use(session({ secret: "cats" }));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 

@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useLogout, useUser } from "../api/user";
 import { useQueryClient } from "@tanstack/react-query";
-import LoginModal from "./LoginModal";
 import Logo from "./Logo";
 import { Settings, Library, LogOut } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -9,7 +8,6 @@ import SearchBar from "./SearchBar";
 
 export default function ProtectedHeader() {
   const [isOpen, setIsOpen] = useState(false);
-  const [clickOnButton, setClickOnButton] = useState(false);
   const dropdownRef = useRef(null);
 
   const user = useUser();
@@ -90,22 +88,23 @@ export default function ProtectedHeader() {
                           right: 0,
                         }}
                       >
-                        <div className="py-1">
-                          <a
-                            href="#"
-                            className="flex gap-2 block px-4 py-2 text-gray-800 hover:bg-gray-200"
-                          >
-                            <Settings strokeWidth={2}/>
-                            Settings
-                          </a>
-                          <hr className="my-1" />
-                          <Link
-                            onClick={logout}
-                            className="flex gap-2 block px-4 py-2 text-red-500 hover:bg-gray-200"
-                          >
-                            <LogOut strokeWidth={2}/>
-                            Logout
-                          </Link>
+                        <div className="relative">
+                          <div className="divide-y">
+                            <a
+                              href="#"
+                              className="flex gap-2 block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                            >
+                              <Settings strokeWidth={2} />
+                              Settings
+                            </a>
+                            <Link
+                              onClick={logout}
+                              className="flex gap-2 block px-4 py-2 text-red-500 hover:bg-gray-200"
+                            >
+                              <LogOut strokeWidth={2} />
+                              Logout
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     )}

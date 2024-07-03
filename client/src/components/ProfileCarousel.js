@@ -41,6 +41,13 @@ export default function ProfileCarousel() {
         "https://lh3.googleusercontent.com/a/ACg8ocID3K2wYQno8i_NGSuReI6ZqAOZI1iBAa6LiW8UeNHaXw87xw=s96-c",
       deckCount: 50,
     },
+    {
+        id: 6,
+        account: "Fathan Luu",
+        profilePhoto:
+          "https://lh3.googleusercontent.com/a/ACg8ocID3K2wYQno8i_NGSuReI6ZqAOZI1iBAa6LiW8UeNHaXw87xw=s96-c",
+        deckCount: 60,
+      },
   ];
 
   const next = () => {
@@ -65,7 +72,7 @@ export default function ProfileCarousel() {
       >
         {profiles
           .map((profile, index) => (
-            <div key={index} className={`relative w-1/4 px-2 flex-none`}>
+            <div key={index} className={`relative w-1/${itemsPerPage} px-2 flex-none`}>
               <ProfileCard
                 id={profile.id}
                 account={profile.account}
@@ -78,7 +85,7 @@ export default function ProfileCarousel() {
       <div className="flex justify-center pt-2 gap-2 invisible group-hover:visible">
         <button
           disabled={startIndex <= 0}
-          className={`flex items-center justify-center rounded-full w-10 h-10 p-1 bg-gray-100 dark:border-[#6B46C1] dark:border-2 dark:text-[#6B46C1] ${
+          className={`flex items-center justify-center rounded-full w-10 h-10 p-1 bg-white dark:border-[#6B46C1] dark:border-2 dark:text-[#6B46C1] ${
             startIndex > 0 ? "hover:bg-[#6B46C1] hover:text-white" : "invisible"
           }`}
           onClick={prev}
@@ -87,7 +94,7 @@ export default function ProfileCarousel() {
         </button>
         <button
           disabled={startIndex >= profiles.length - itemsPerPage}
-          className={`flex items-center justify-center rounded-full w-10 h-10 p-1 bg-gray-100 dark:border-[#6B46C1] dark:border-2 dark:text-[#6B46C1] ${
+          className={`flex items-center justify-center rounded-full w-10 h-10 p-1 bg-white dark:border-[#6B46C1] dark:border-2 dark:text-[#6B46C1] ${
             startIndex < profiles.length - itemsPerPage
               ? "hover:bg-[#6B46C1] hover:text-white"
               : "invisible"

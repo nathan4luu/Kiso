@@ -42,7 +42,7 @@ export default function LoginModal() {
           </button>
         </form>
 
-        <h3 className="font-bold text-xl ">Login</h3>
+        <h3 className="font-semibold text-xl ">Login</h3>
 
         <div className="relative flex py-5 items-center">
           <div className="flex-grow border-t border-gray-400"></div>

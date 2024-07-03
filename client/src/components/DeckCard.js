@@ -15,15 +15,19 @@ export default function DeckCard({
   currentUser,
 }) {
   const [isActive, setIsActive] = useState(favorited || false);
+  const [isHovered, setIsHovered] = useState(false);
+
 
   const toggleState = (e) => {
     e.preventDefault();
     setIsActive(!isActive);
   };
 
+  const isCurrentUser = currentUser === userId;
+
   return (
-    <div className=" p-2 h-52 rounded-lg border-b-4 border-gray-100 bg-gray-50 hover:bg-gray-100 hover:border-b-4 hover:border-[#6B46C1] hover:shadow-xl">
-      <Link to={"/decks/" + id} className="block">
+    <div className=" h-52 rounded-lg border-b-4 border-gray-100 bg-gray-50 transition-colors transition-shadow duration-300 ease-in-out hover:bg-gray-100 hover:border-b-4 hover:border-[#6B46C1] hover:shadow-xl">
+      <Link to={`/decks/${id}`} className="block p-2">
         <div className="flex gap-2 items-center ">
           <h1 className="text-2xl font-semibold py-1 line-clamp-1 hover:text-[#6B46C1]">
             {title}
@@ -44,7 +48,11 @@ export default function DeckCard({
         <p className="pt-3 line-clamp-2 h-16">{description}</p>
         <div className="pt-6 flex gap-2 items-center">
           <Link
-            to={`/user/${userId}/library/`}
+            to={
+              isCurrentUser
+                ? `/user/${userId}/library/0`
+                : `/user/${userId}/library/`
+            }
             className="flex gap-2 hover:underline hover:text-[#6B46C1]"
           >
             <img

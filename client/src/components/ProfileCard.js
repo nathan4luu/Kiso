@@ -4,7 +4,7 @@ import { TbCards } from "react-icons/tb";
 export default function ProfileCard({ id, account, profilePhoto, deckCount }) {
     
   return (
-    <div className="p-4 h-39 rounded-lg border-b-4 border-gray-100 bg-gray-50 transition-colors transition-shadow duration-300 ease-in-out hover:bg-gray-100 hover:border-b-4 hover:border-[#6B46C1] hover:drop-shadow-xl">
+    <div className="p-4 h-39 rounded-lg border-b-4 border-gray-100 bg-white transition-colors transition-shadow duration-300 ease-in-out hover:bg-gray-100 hover:border-b-4 hover:border-[#6B46C1] hover:shadow-xl hover:shadow-[#ebe6f5]">
       <Link to={"/user/" + id + "/library/"}>
         <img
           src={profilePhoto}

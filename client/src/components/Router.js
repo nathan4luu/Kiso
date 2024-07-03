@@ -16,7 +16,7 @@ import UserLibrary from "../pages/UserLibrary";
 import DeckDetails from "../pages/DeckDetails";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
-import SearchResults from "./SearchResults";
+import SearchResults from "../pages/SearchResults";
 
 export default function Router() {
   const user = useUser();
@@ -32,7 +32,7 @@ export default function Router() {
         <div className="flex flex-col justify-between min-h-screen overflow-x-hidden">
           <Header />
           <div className="flex bg-[#ebe6f5] justify-center flex-1 w-full overflow-hidden p-4">
-            <div className="shadow-lg rounded-lg bg-white w-full max-w-[1200px] min-w-[800px] px-4 md:px-6 ">
+            <div className="shadow-lg rounded-lg bg-gray-50 w-full max-w-[1200px] min-w-[800px] px-4 md:px-6 ">
               <Outlet />
             </div>
           </div>

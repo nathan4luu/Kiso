@@ -18,7 +18,7 @@ export default function Dashboard() {
 
   if (user.data && user.fetchStatus !== "fetching") {
     return (
-      <div>
+      <div className="pb-6">
 
         <h1 className="text-3xl font-medium py-6">Recent activity</h1>
         <DeckCarousel currentUser={user.data.id} />

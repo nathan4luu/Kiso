@@ -1,22 +1,14 @@
-# EduCards
+# Kiso
 
-PostrgreSQL/Express.js/Reactjs/Nodejs app designed to create flashcards to study with.
+PostrgreSQL/Express.js/Reactjs/Nodejs web app designed to be your new study buddy.
 
 ### Running locally
-
-If any new development dependancies have been installed, make sure to run the following commands:
-
-```bash
-    cd client
-    npm install
-    cd ../server
-    npm install
-```
 
 The development server for the frontend (client) can be started with the following command:
 
 ```bash
     cd client
+    npm install #(if new development dependancies need to be installed/updated)
     npm start
 ```
 
@@ -24,6 +16,7 @@ The development server for the backend (server) can be started with the followin
 
 ```bash
     cd server
+    npm install #(if new development dependancies need to be installed/updated)
     npm start
 ```
 

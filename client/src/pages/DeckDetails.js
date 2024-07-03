@@ -20,7 +20,7 @@ export default function DeckDetails() {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4040/api/decks/" + deckId
+          `http://localhost:4040/api/decks/${deckId}`, {withCredentials: true}
         ); 
         setData(response.data); 
         setLoading(false);
@@ -32,7 +32,7 @@ export default function DeckDetails() {
     };
 
     fetchUserData();
-  }, []);
+  }, [deckId]);
 
   if (!loading && !error) {
     const isCurrentUser = user.data.id === data.user.id;

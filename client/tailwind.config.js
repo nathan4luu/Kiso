@@ -4,8 +4,14 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        shojumaru: ['Shojumaru', 'cursive'],
+      }
+    },
   },
-  plugins: [],
+  plugins: [
+    require('daisyui'),
+  ],
 }
 

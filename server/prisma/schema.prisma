@@ -61,5 +61,5 @@ model FavoriteDeck {
   deck   Deck   @relation(fields: [deckId], references: [id])
   deckId String
 
-  createdAt DateTime @default(now())
+  favoritedAt DateTime @default(now())
 }

@@ -36,3 +36,33 @@
     transform: rotate(360deg);
   }
 }
+
+.flashcard-container {
+  perspective: 1000px;
+  width: 100%; 
+  height: 100%; 
+}
+
+.flashcard {
+  width: 100%; 
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.3s;
+}
+
+.flashcard.flipped {
+  transform: rotateX(180deg); 
+}
+
+.flashcard-back,
+.flashcard-front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.flashcard-front {
+  transform: rotateX(180deg); 
+}

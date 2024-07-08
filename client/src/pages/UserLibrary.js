@@ -11,11 +11,12 @@ export default function UserLibrary() {
   const user = useUser();
   const navigate = useNavigate();
   const [isCurrentUser, setIsCurrentUser] = useState(false);
-
   useEffect(() => {
     if (user.data === null) {
       navigate("/");
     }
+  }, [user, navigate]);
+  useEffect(() => {
     if (user.data && user.data.id === userId) {
       setIsCurrentUser(true);
       if (isInvalidNum) {

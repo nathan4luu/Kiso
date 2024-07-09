@@ -15,6 +15,8 @@ export default function SearchBar() {
     }
   }, [location]);
 
+  const placeholder = window.innerWidth < 768 ? "Search..." : "Search Kiso..."
+
   return (
     <>
       <form
@@ -31,7 +33,7 @@ export default function SearchBar() {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search Kiso..."
+          placeholder={placeholder}
           className="w-full outline-none"
         />
         {query && (

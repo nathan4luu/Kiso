@@ -36,10 +36,10 @@ export default function ProtectedHeader() {
           <div className="items-center flex-1">
             <Logo />
           </div>
-          <div className="flex-1 px-4 py-1">
+          <div className="flex-1 py-1">
             <SearchBar />
           </div>
-          <div className="flex-1 px-4 py-1">
+          <div className="flex-1 pr-4 py-1">
             <div
               className="justify-end w-full items-center md:block md:w-auto ml-auto justify-end self-center"
               id="navbar-default"
@@ -51,19 +51,10 @@ export default function ProtectedHeader() {
                     className="block py-2 px-3 flex rounded-lg hover:bg-white hover:text-[#6B46C1] dark:hover:bg-gray-800 dark:hover:text-[#6B46C1]"
                   >
                     <Library />
-                    <div className="pl-1 line-clamp-1"> Your library</div>
+                    {window.innerWidth >= 768 &&
+                    <div className="pl-1 line-clamp-1 hidden md:block"> Your library</div>}
                   </Link>
                 </li>
-                {/*<li>
-                  <Link
-                    className="block py-2 bg-white rounded-lg hover:bg-gray-200 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                    onClick={logout}
-                  >
-                    <p className="line-clamp-1 px-4 py-2 text-[#6B46C1] whitespace-nowrap">
-                      Log Out
-                    </p>
-                  </Link>
-                </li>*/}
                 <li>
                   <div className="relative flex items-center inline-block">
                     <button
@@ -76,13 +67,13 @@ export default function ProtectedHeader() {
                       <img
                         src={user.data.pfp}
                         alt="Profile"
-                        className=" rounded-full w-10 h-10"
+                        className={`rounded-full w-12 h-12`}
                       ></img>
                     </button>
                     {isOpen && (
                       <div
                         ref={dropdownRef}
-                        className=" absolute mt-3 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-10 transition-opacity"
+                        className=" absolute mt-3 w-48 bg-white rounded-lg shadow-lg border border-gray-200"
                         style={{
                           top: "100%",
                           right: 0,

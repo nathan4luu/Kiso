@@ -1,6 +1,6 @@
 # Kiso
 
-PostrgreSQL/Express.js/Reactjs/Nodejs web app designed to be your new study buddy.
+PostrgreSQL/Express.js/Node.js/React/Tailwind web app designed to be your new study buddy.
 
 ### Running locally
 

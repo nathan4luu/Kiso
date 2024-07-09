@@ -7,6 +7,9 @@ module.exports = {
     extend: {
       fontFamily: {
         shojumaru: ['Shojumaru', 'cursive'],
+      },
+      height: {
+        '128': "27rem",
       }
     },
   },

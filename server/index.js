@@ -42,7 +42,7 @@ app.get("/", (req, res) => {
 app.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    successRedirect: "http://localhost:3000/login/success",
+    successRedirect: "http://localhost:3000/login/loading",
     failureRedirect: "/auth/failure",
   })
 );
@@ -72,7 +72,7 @@ app.get("/test", isLoggedIn, (req, res) => {
 });
 
 app.get("/protected", isLoggedIn, (req, res) => {
-  res.send(`Hello! ${req.user.displayName}`);
+  res.send(' <img src="${req.user.profilePhoto}" alt="Profile Photo">');
 });
 
 app.get("/logout", isLoggedIn, (req, res) => {
@@ -81,12 +81,13 @@ app.get("/logout", isLoggedIn, (req, res) => {
   });
 });
 
-app.post("/logout", isLoggedIn, (req, res) => {
+app.post("/logout", isLoggedIn, async (req, res) => {
   req.logout((err) => {
     if (err) {
       return res.sendStatus(500);
     }
   });
+  await prisma.$disconnect();
   res.redirect("/");
   console.log("logged out");
 });

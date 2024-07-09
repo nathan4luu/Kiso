@@ -4,7 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import LoginModal from "./LoginModal";
 import Logo from "./Logo";
 import ProtectedHeader from "./ProtectedHeader";
-import { LogOut } from "lucide-react";
+import { LogIn, LogOut } from "lucide-react";
 
 export default function Header() {
   const user = useUser();
@@ -33,8 +33,8 @@ export default function Header() {
                       document.getElementById("myModal").showModal()
                     }
                   >
-                    <div className="flex gap-1line-clamp-1 px-4 py-2 text-[#6B46C1]">
-                      <LogOut />
+                    <div className="flex gap-1 line-clamp-1 px-4 py-2 text-[#6B46C1]">
+                      <LogIn />
                       Log In
                     </div>
                   </Link>

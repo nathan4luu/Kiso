@@ -75,7 +75,7 @@ export default function Router() {
           </Route>
           
 
-          <Route path="/login/success" element={<LoginSuccess />}></Route>
+          <Route path="/login/loading" element={<LoginSuccess />}></Route>
         </Routes>
       </BrowserRouter>
     </>

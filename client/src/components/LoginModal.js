@@ -1,12 +1,12 @@
-import { useState,  } from "react";
+import { useState } from "react";
 import GoogleLogo from "../assets/images/google-icon.svg";
 import { useUser } from "../api/user";
-import { redirect } from "react-router-dom";
+import { Link, Navigate, redirect, useNavigate } from "react-router-dom";
 
 export default function LoginModal() {
   const [googleLoading, setGoogleLoading] = useState(false);
   const user = useUser();
-
+  const navigate = useNavigate();
 
   const redirecToGoogleSSO = async () => {
     const googleLoginURL = "http://localhost:4040/auth/google";
@@ -15,7 +15,6 @@ export default function LoginModal() {
       "_blank",
       "width=500,height=600"
     );
-
 
     if (newWindow) {
       window.addEventListener(
@@ -37,7 +36,7 @@ export default function LoginModal() {
     <dialog id="myModal" className="modal">
       <div className="modal-box text-black">
         <form method="dialog">
-          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 focus:outline-none">
             ✕
           </button>
         </form>
@@ -52,11 +51,12 @@ export default function LoginModal() {
 
         <button
           disabled={googleLoading}
-          onClick={async () => {
-            setGoogleLoading(true);
-            redirecToGoogleSSO();
-          }}
-          className="w-full hover:bg-gray-200 rounded-lg border"
+          onClick={() =>
+            (window.location.href = "http://localhost:4040/auth/google")
+          }
+          className={`w-full hover:bg-gray-200 rounded-lg border ${
+            googleLoading ? "cursor-not-allowed opacity-50" : ""
+          }`}
         >
           <div className="flex justify-center py-2">
             <img src={GoogleLogo} alt="google" width="15" height="15" />

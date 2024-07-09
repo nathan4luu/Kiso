@@ -21,21 +21,35 @@ passport.use(
       const profileName = profile._json.name;
       const profilePhoto = profile._json.picture;
 
-      const user = await prisma.user.findUnique({
-        where: {
-          email: profileEmail,
-        },
-      });
-      if (user === null) {
-        await prisma.user.create({
-          data: {
+      try {
+        const user = await prisma.user.findUnique({
+          where: {
             email: profileEmail,
-            name: profileName,
-            profilePhoto: profilePhoto,
           },
         });
+        if (!user) {
+          await prisma.user.create({
+            data: {
+              email: profileEmail,
+              name: profileName,
+              profilePhoto: profilePhoto,
+            },
+          });
+        } else {
+          await prisma.user.update({
+            where: {
+              email: profileEmail,
+            },
+            data: {
+              profilePhoto: profilePhoto,
+            },
+          });
+        }
+        return cb(null, profile);
+      } catch (error) {
+        console.error("Error during user creation or update:", error);
+        return cb(error, null);
       }
-      return cb(null, profile);
     }
   )
 );

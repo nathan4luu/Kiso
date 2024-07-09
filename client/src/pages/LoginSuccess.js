@@ -1,12 +1,17 @@
 import { useEffect } from "react";
+import { useUser } from "../api/user";
+import { useNavigate } from "react-router-dom";
 
 export function LoginSuccess() {
+  const user = useUser();
+  const navigate = useNavigate();
   useEffect(() => {
-    setTimeout(() => {
-        window.opener.postMessage('authenticated', 'http://localhost:3000')
-      window.close();
-    }, 1250);
-  }, []);
+    if (user.data) {
+      navigate("/dashboard");
+    } else {
+      navigate("/");
+    }
+  }, [user, navigate]);
   return (
     <div className="flex flex-row min-h-screen justify-center items-center">
       <div className="items-center">
@@ -19,5 +24,4 @@ export function LoginSuccess() {
       </div>
     </div>
   );
-
 }

@@ -4,10 +4,15 @@ import { useQueryClient } from "@tanstack/react-query";
 import LoginModal from "./LoginModal";
 import Logo from "./Logo";
 import ProtectedHeader from "./ProtectedHeader";
+import { LogOut } from "lucide-react";
 
 export default function Header() {
-const user = useUser();
-if (user.data !== null && user.isSuccess) return <ProtectedHeader />
+  const user = useUser();
+  if (user.isLoading)
+    return (
+      <nav className="mx-auto bg-[#6B46C1] w-screen dark:bg-gray-900"></nav>
+    );
+  if (user.data !== null && user.isSuccess) return <ProtectedHeader />;
   return (
     <>
       <nav className="mx-auto bg-[#6B46C1] w-screen dark:bg-gray-900">
@@ -28,9 +33,10 @@ if (user.data !== null && user.isSuccess) return <ProtectedHeader />
                       document.getElementById("myModal").showModal()
                     }
                   >
-                    <p className="line-clamp-1 px-4 py-2 text-[#6B46C1]">
+                    <div className="flex gap-1line-clamp-1 px-4 py-2 text-[#6B46C1]">
+                      <LogOut />
                       Log In
-                    </p>
+                    </div>
                   </Link>
 
                   <LoginModal />

@@ -16,9 +16,10 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, cb) => {
       console.log(profile);
-      console.log('logged in');
+      console.log("logged in");
       const profileEmail = profile._json.email;
       const profileName = profile._json.name;
+      const profilePhoto = profile._json.picture;
 
       const user = await prisma.user.findUnique({
         where: {
@@ -30,6 +31,7 @@ passport.use(
           data: {
             email: profileEmail,
             name: profileName,
+            profilePhoto: profilePhoto,
           },
         });
       }

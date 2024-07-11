@@ -48,6 +48,7 @@ router.get("/users/:userId/decks/created", isLoggedIn, async (req, res) => {
         },
         include: {
           user: true,
+          cards: true,
         },
       });
       if (!decks) {

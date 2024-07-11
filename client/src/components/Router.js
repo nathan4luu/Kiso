@@ -71,6 +71,7 @@ export default function Router() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/user/:userId/library/:pageId?" element={<UserLibrary />} />
             <Route path="/decks/:deckId" element={<DeckDetails />} />
+            <Route path="/decks/:deckId/flashcards" />
             <Route path="/search" element={<SearchResults />} />
           </Route>
           

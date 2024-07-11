@@ -18,19 +18,21 @@ export default function Dashboard() {
 
   if (user.data && user.fetchStatus !== "fetching") {
     return (
-      <div className="pb-6">
+      <div className="py-6 space-y-20">
+        <div className="space-y-6">
+          <h1 className="text-3xl font-medium ">Recent activity</h1>
+          <DeckCarousel currentUser={user.data.id} />
+        </div>
 
-        <h1 className="text-3xl font-medium py-6">Recent activity</h1>
-        <DeckCarousel currentUser={user.data.id} />
+        <div className="space-y-6">
+          <h1 className="text-3xl font-medium">See what others are studying</h1>
+          <DeckCarousel currentUser={user.data.id} />
+        </div>
 
-        <h1 className="text-3xl font-medium pt-20 pb-6">
-          See what others are studying
-        </h1>
-        <DeckCarousel currentUser={user.data.id} />
-
-        <h1 className="text-3xl font-medium pt-20 pb-6">Popular accounts</h1>
-        <ProfileCarousel />
-        
+        <div className="space-y-6">
+          <h1 className="text-3xl font-medium">Popular accounts</h1>
+          <ProfileCarousel />
+        </div>
       </div>
     );
   }

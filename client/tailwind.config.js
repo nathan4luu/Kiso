@@ -9,7 +9,7 @@ module.exports = {
         shojumaru: ['Shojumaru', 'cursive'],
       },
       height: {
-        '128': "27rem",
+        '128': "28rem",
       }
     },
   },

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import DeckCard from "../components/DeckCard";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Loader } from "lucide-react";
 import axios from "axios";
 import { useUser } from "../api/user";
+import LoadingSpinner from "./LoadingSpinner";
 
 export default function DeckCarousel({currentUser}) {
   const [startIndex, setStartIndex] = useState(0);
@@ -48,7 +49,10 @@ export default function DeckCarousel({currentUser}) {
     // Clean up
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
+  
+  if (loading) {
+    return <LoadingSpinner />;
+  }
   if (!loading) {
     const decks = [
       {

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import ProfileCard from "../components/ProfileCard";
 import DeckCarousel from "../components/DeckCarousel";
 import ProfileCarousel from "../components/ProfileCarousel";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -15,7 +16,9 @@ export default function Dashboard() {
       navigate("/");
     }
   }, [user, navigate]);
-
+  if (user.isLoading) {
+    return <LoadingSpinner />;
+  }
   if (user.data && user.fetchStatus !== "fetching") {
     return (
       <div className="py-6 space-y-20">

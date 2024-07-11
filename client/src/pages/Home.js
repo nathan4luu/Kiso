@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useUser } from "../api/user";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -10,7 +11,9 @@ export default function Home() {
       navigate("/dashboard");
     }
   }, [user, navigate]);
-
+  if (user.isLoading) {
+    return <LoadingSpinner />;
+  }
   if (user.data === null) {
     return (
       <main>

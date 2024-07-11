@@ -3,6 +3,7 @@ import { CalendarSearch } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getTimeAgo } from "./YourDecks";
+import LoadingSpinner from "../LoadingSpinner";
 
 export default function FavoriteDecks({ currentUserId }) {
   const [favoriteDecks, setFavoriteDecks] = useState([]);
@@ -29,9 +30,12 @@ export default function FavoriteDecks({ currentUserId }) {
     };
     fetchFavoriteDecks();
   }, []);
+  if (loading) {
+    return <LoadingSpinner />;
+  }
   if (!loading)
     return (
-        <div>
+      <div>
         {favoriteDecks.length === 0 ? (
           <p>Favorites? What favorites? You haven't picked any yet!</p>
         ) : (
@@ -49,7 +53,9 @@ export default function FavoriteDecks({ currentUserId }) {
                     <div className="text-2xl font-semibold line-clamp-1 pt-1">
                       {favorite.deck.title}
                     </div>
-                    <div className="italic text-s text-slate-500">Favorited {getTimeAgo(favorite.favoritedAt)}</div>
+                    <div className="italic text-s text-slate-500">
+                      Favorited {getTimeAgo(favorite.favoritedAt)}
+                    </div>
                   </div>
                 </Link>
               </div>

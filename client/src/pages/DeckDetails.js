@@ -8,6 +8,7 @@ import "../App.css";
 import FlashcardCard from "../components/FlashcardCard";
 import FlashcardCarousel from "../components/FlashcardCarousel";
 import { getTimeAgo } from "../components/CurrentUserLibraryTabs/YourDecks";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function DeckDetails() {
   const navigate = useNavigate();
@@ -59,6 +60,9 @@ export default function DeckDetails() {
     };
   }, []);
 
+  if (loading) {
+    return <LoadingSpinner />;
+  }
   if (!loading && !error) {
     const isCurrentUser = user.data.id === data.user.id;
 

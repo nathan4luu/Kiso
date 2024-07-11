@@ -2,13 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { formatDate, formatDistanceToNow } from "date-fns";
+import LoadingSpinner from "../LoadingSpinner";
 
 export const getTimeAgo = (timestamp) => {
-    const formattedTime = formatDistanceToNow(new Date(timestamp), {
-      addSuffix: true,
-    });
-    return formattedTime.replace("about", "");
-  };
+  const formattedTime = formatDistanceToNow(new Date(timestamp), {
+    addSuffix: true,
+  });
+  return formattedTime.replace("about", "");
+};
 
 export default function YourDecks({ currentUserId }) {
   const [yourDecks, setYourDecks] = useState([]);
@@ -35,6 +36,9 @@ export default function YourDecks({ currentUserId }) {
     };
     fetchYourDecks();
   }, []);
+  if (loading) {
+    return <LoadingSpinner />;
+  }
   if (!loading)
     return (
       <div>
@@ -55,7 +59,9 @@ export default function YourDecks({ currentUserId }) {
                     <div className="text-2xl font-semibold line-clamp-1 pt-1">
                       {deck.title}
                     </div>
-                    <div className="italic text-s text-slate-500">Last edited {getTimeAgo(deck.editedAt)}</div>
+                    <div className="italic text-s text-slate-500">
+                      Last edited {getTimeAgo(deck.editedAt)}
+                    </div>
                   </div>
                 </Link>
               </div>

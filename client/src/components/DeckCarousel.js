@@ -55,7 +55,7 @@ export default function DeckCarousel({currentUser}) {
         id: data.id,
         title: data.title,
         description: data.description,
-        termCount: data.termCount,
+        termCount: data.cards.length,
         user: data.user.name,
         userId: data.user.id,
         profilePhoto: data.user.profilePhoto,

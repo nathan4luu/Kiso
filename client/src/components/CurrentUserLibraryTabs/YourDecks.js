@@ -50,12 +50,12 @@ export default function YourDecks({ currentUserId }) {
                 <Link to={`/decks/${deck.id}`} className="block p-4">
                   <div className="gap-2 items-center ">
                     <div className="inline-block items-center rounded-full bg-gray-200 px-2 py-1 text-xs font-semibold">
-                      {deck.termCount} terms
+                      {deck.cards.length} terms
                     </div>
                     <div className="text-2xl font-semibold line-clamp-1 pt-1">
                       {deck.title}
                     </div>
-                    <div className="italic text-s text-slate-500">Edited {getTimeAgo(deck.editedAt)}</div>
+                    <div className="italic text-s text-slate-500">Last edited {getTimeAgo(deck.editedAt)}</div>
                   </div>
                 </Link>
               </div>

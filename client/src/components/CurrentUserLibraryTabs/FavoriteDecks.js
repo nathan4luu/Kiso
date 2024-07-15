@@ -48,7 +48,7 @@ export default function FavoriteDecks({ currentUserId }) {
                 <Link to={`/decks/${favorite.deck.id}`} className="block p-4">
                   <div className="gap-2 items-center ">
                     <div className="inline-block items-center rounded-full bg-gray-200 px-2 py-1 text-xs font-semibold">
-                      {favorite.deck.termCount} terms
+                      {favorite.deck.cards.length} terms
                     </div>
                     <div className="text-2xl font-semibold line-clamp-1 pt-1">
                       {favorite.deck.title}

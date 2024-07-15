@@ -12,8 +12,12 @@ router.get("/decks/:deckId", isLoggedIn, async (req, res) => {
     const deck = await prisma.deck.findUnique({
       where: { id: deckId },
       include: {
-        user: true,
-        cards: true,
+        user: true, // Include the user associated with the deck
+        cards: {
+          orderBy: {
+            createdAt: "asc", // Order cards by createdAt in ascending order
+          },
+        },
         FavoriteDeck: {
           where: {
             userId: req.session.user.id,
@@ -76,7 +80,11 @@ router.get("/users/:userId/decks/favorites", isLoggedIn, async (req, res) => {
           userId: currentUser.id,
         },
         include: {
-          deck: true,
+          deck: {
+            include: {
+              cards: true,
+            },
+          },
         },
       });
       if (!favoriteDecks) {
@@ -87,6 +95,95 @@ router.get("/users/:userId/decks/favorites", isLoggedIn, async (req, res) => {
       console.log(error);
       res.status(500).json({ message: "Server error" });
     }
+  }
+});
+
+router.post("/cards", isLoggedIn, async (req, res) => {
+  const data = req.body;
+  console.log(data);
+  try {
+    const existingDeck = await prisma.deck.findUnique({
+      where: {
+        id: data.deckId,
+      },
+    });
+
+    if (!existingDeck) {
+      res.status(404).json({ message: "Deck not found" });
+    }
+    const newCard = await prisma.card.create({
+      data: {
+        id: data.newCardId,
+        term: data.term,
+        definition: data.definition,
+        deckId: data.deckId,
+      },
+    });
+    res.json(newCard);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+router.delete("/cards/:cardId", isLoggedIn, async (req, res) => {
+  const { cardId } = req.params;
+  console.log(cardId);
+
+  try {
+    const card = await prisma.card.findUnique({
+      where: { id: cardId },
+    });
+
+    if (!card) {
+      return res.status(404).json({ message: "Card not found." });
+    }
+
+    const deletedCard = await prisma.card.delete({
+      where: {
+        id: cardId,
+      },
+    });
+    console.log(" Resource delted sucessfully", deletedCard);
+    res
+      .status(200)
+      .json({ message: "Resource deleted successfully.", id: cardId });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+router.put("/cards/:cardId", isLoggedIn, async (req, res) => {
+  const { cardId } = req.params;
+
+  const data = req.body;
+
+  console.log(cardId);
+  console.log(data);
+  console.log("hey");
+
+  try {
+    const existingCard = await prisma.card.findUnique({
+      where: { id: cardId },
+    });
+
+    if (!existingCard) {
+      res.status(404).json({ message: "Card not found." });
+    }
+
+    const updatedCard = await prisma.card.update({
+      where: { id: cardId },
+      data: {
+        term: data.term,
+        definition: data.definition,
+      },
+    });
+
+    res.json(updatedCard);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error." });
   }
 });
 

@@ -10,7 +10,12 @@ module.exports = {
       },
       height: {
         '128': "28rem",
-      }
+      },
+      colors: {
+        'purple-main': '#6B46C1',
+        'purple-secondary': '#EBE6F5',
+
+      },
     },
   },
   plugins: [

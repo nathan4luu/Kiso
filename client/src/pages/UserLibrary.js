@@ -17,6 +17,7 @@ export default function UserLibrary() {
       navigate("/");
     }
   }, [user, navigate]);
+
   useEffect(() => {
     if (user.data && user.data.id === userId) {
       setIsCurrentUser(true);
@@ -24,7 +25,8 @@ export default function UserLibrary() {
         navigate(`/user/${userId}/library/0`);
       }
     }
-  }, [user.data, userId]);
+  }, [user.data, userId, isInvalidNum, navigate]);
+
   if (user.isLoading) {
     return <LoadingSpinner />;
   }

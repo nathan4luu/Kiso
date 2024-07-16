@@ -21,6 +21,7 @@ model User {
   profilePhoto String?
 
   createdAt DateTime @default(now())
+  lastLogIn DateTime @default(now())
 
   decks         Deck[]
   favoriteDecks FavoriteDeck[]
@@ -50,6 +51,7 @@ model Card {
   definition String
 
   createdAt DateTime @default(now())
+  editedAt  DateTime @updatedAt
 }
 
 model FavoriteDeck {

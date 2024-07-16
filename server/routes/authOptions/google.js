@@ -20,6 +20,7 @@ passport.use(
       const profileEmail = profile._json.email;
       const profileName = profile._json.name;
       const profilePhoto = profile._json.picture;
+      const now = new Date();
 
       try {
         const user = await prisma.user.findUnique({
@@ -42,6 +43,7 @@ passport.use(
             },
             data: {
               profilePhoto: profilePhoto,
+              lastLogIn: now,
             },
           });
         }

@@ -153,15 +153,13 @@ router.delete("/cards/:cardId", isLoggedIn, async (req, res) => {
       },
     });
 
-    await prisma.deck.update({
+    const deck = await prisma.deck.update({
       where: { id: card.deck.id },
       data: { editedAt: new Date() },
     });
 
     console.log(" Resource delted sucessfully", deletedCard);
-    res
-      .status(200)
-      .json({ message: "Resource deleted successfully.", id: cardId });
+    res.json({ id: cardId, deck });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
@@ -195,7 +193,7 @@ router.put("/cards/:cardId", isLoggedIn, async (req, res) => {
 
     await prisma.deck.update({
       where: { id: existingCard.deck.id },
-      data: { editedAt: new Date() },
+      data: { editedAt: updatedCard.editedAt },
     });
 
     res.json(updatedCard);

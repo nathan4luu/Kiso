@@ -30,6 +30,13 @@ Initialize a .env file in the server directory with the required values.
 
 #### General usage
 
+Before running the up for the first time, a prisma client must be generated. You can do so with the following command:
+
+```bash
+    cd server #(if not currently in server directory)
+    npx prisma generate
+```
+
 If you need to run migrations, you can do so with the following command:
 
 ```bash

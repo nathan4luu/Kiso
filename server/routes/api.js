@@ -100,7 +100,6 @@ router.get("/users/:userId/decks/favorites", isLoggedIn, async (req, res) => {
 
 router.post("/cards", isLoggedIn, async (req, res) => {
   const data = req.body;
-  console.log(data);
   try {
     const existingDeck = await prisma.deck.findUnique({
       where: {
@@ -119,6 +118,12 @@ router.post("/cards", isLoggedIn, async (req, res) => {
         deckId: data.deckId,
       },
     });
+
+    await prisma.deck.update({
+      where: { id: data.deckId },
+      data: { editedAt: new Date() },
+    });
+
     res.json(newCard);
   } catch (error) {
     console.error(error);
@@ -133,6 +138,9 @@ router.delete("/cards/:cardId", isLoggedIn, async (req, res) => {
   try {
     const card = await prisma.card.findUnique({
       where: { id: cardId },
+      include: {
+        deck: true,
+      }
     });
 
     if (!card) {
@@ -144,6 +152,12 @@ router.delete("/cards/:cardId", isLoggedIn, async (req, res) => {
         id: cardId,
       },
     });
+
+    await prisma.deck.update({
+      where: { id: card.deck.id },
+      data: { editedAt: new Date() },
+    });
+
     console.log(" Resource delted sucessfully", deletedCard);
     res
       .status(200)
@@ -159,13 +173,12 @@ router.put("/cards/:cardId", isLoggedIn, async (req, res) => {
 
   const data = req.body;
 
-  console.log(cardId);
-  console.log(data);
-  console.log("hey");
-
   try {
     const existingCard = await prisma.card.findUnique({
       where: { id: cardId },
+      include: {
+        deck: true
+      }
     });
 
     if (!existingCard) {
@@ -178,6 +191,11 @@ router.put("/cards/:cardId", isLoggedIn, async (req, res) => {
         term: data.term,
         definition: data.definition,
       },
+    });
+
+    await prisma.deck.update({
+      where: { id: existingCard.deck.id },
+      data: { editedAt: new Date() },
     });
 
     res.json(updatedCard);

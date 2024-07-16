@@ -28,7 +28,7 @@ The app uses a Postgres database hosted on [supabase.com](https://supabase.com/)
 
 Initialize a .env file in the server directory with the required values.
 
-Before running the up for the first time, a prisma client must be generated. You can do so with the following command:
+Before running the app for the first time, a prisma client must be generated. You can do so with the following command:
 
 ```bash
     cd server #(if not currently in server directory)

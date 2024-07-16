@@ -3,7 +3,7 @@ import { useLogout, useUser } from "../api/user";
 import { useQueryClient } from "@tanstack/react-query";
 import Logo from "./Logo";
 import { Settings, Library, LogOut } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import SearchBar from "./SearchBar";
 
 export default function ProtectedHeader() {
@@ -16,12 +16,6 @@ export default function ProtectedHeader() {
   const logoutMutation = useLogout();
 
   const queryClient = useQueryClient();
-
-  const logout = () => {
-    logoutMutation.mutate();
-    console.log(queryClient.isMutating && "mutating");
-    navigate("/");
-  };
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -89,7 +83,7 @@ export default function ProtectedHeader() {
                               Settings
                             </a>
                             <Link
-                              onClick={logout}
+                              to="/logout/loading"
                               className="flex gap-2 block px-4 py-2 text-red-500 hover:bg-gray-200"
                             >
                               <LogOut strokeWidth={2} />

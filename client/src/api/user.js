@@ -47,7 +47,6 @@ export const useLogout = () => {
       queryClient.setQueryData(["user"], null);
 
       console.log("logged out");
-      navigate("/");
     },
   });
 };

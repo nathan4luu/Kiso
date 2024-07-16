@@ -14,9 +14,9 @@ import { useUser } from "../api/user";
 import ProtectedHeader from "./ProtectedHeader";
 import UserLibrary from "../pages/UserLibrary";
 import DeckDetails from "../pages/DeckDetails";
-import { useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
 import SearchResults from "../pages/SearchResults";
+import Loading from "../pages/Loading";
+import Flashcards from "../pages/Flashcards";
 
 export default function Router() {
   const user = useUser();
@@ -71,12 +71,12 @@ export default function Router() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/user/:userId/library/:pageId?" element={<UserLibrary />} />
             <Route path="/decks/:deckId" element={<DeckDetails />} />
-            <Route path="/decks/:deckId/flashcards" />
+            <Route path="/decks/:deckId/flashcards" element={<Flashcards />}/>
             <Route path="/search" element={<SearchResults />} />
           </Route>
           
 
-          <Route path="/login/loading" element={<LoginSuccess />}></Route>
+          <Route path="/logout/loading" element={<Loading />}></Route>
         </Routes>
       </BrowserRouter>
     </>

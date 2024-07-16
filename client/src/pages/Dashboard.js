@@ -1,12 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useUser } from "../api/user";
-import DeckCard from "../components/DeckCard";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import ProfileCard from "../components/ProfileCard";
 import DeckCarousel from "../components/DeckCarousel";
 import ProfileCarousel from "../components/ProfileCarousel";
-import LoadingSpinner from "../components/LoadingSpinner";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 export default function Dashboard() {
   const navigate = useNavigate();

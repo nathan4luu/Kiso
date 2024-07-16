@@ -63,7 +63,6 @@ export default function TermCard({
       handleTextAreaResize(definitionRef.current);
     }
   }, [isEditing]);
-
   return (
     <>
       {!isEditing ? (
@@ -156,7 +155,7 @@ export default function TermCard({
       )}
       <dialog id={`deleteModal${id}`} className="modal">
         <div className="modal-box">
-          <div className="bg-white p-6 rounded-lg shadow-lg">
+          <div className="bg-white rounded-lg ">
             <h2 className="text-lg font-semibold mb-4">Confirm Deletion</h2>
             <p>Are you sure you want to delete this card?</p>
             <form method="dialog" className="mt-6 flex justify-end space-x-4">

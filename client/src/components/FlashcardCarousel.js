@@ -20,7 +20,7 @@ export default function FlashcardCarousel({ cards }) {
   };
 
   return (
-    <div className="h-auto space-y-2 flex-grow w-full h-full overflow-hidden group">
+    <div className="space-y-2 flex-grow w-full h-auto overflow-hidden group">
       <div
         className="flex h-128 flex-shrink-0 transition-transform duration-300 ease-in-out"
         style={{

@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useUser } from "../api/user";
 import { useEffect, useState } from "react";
 import CurrentUserLibrary from "../components/CurrentUserLibrary";
-import LoadingSpinner from "../components/LoadingSpinner";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 export default function UserLibrary() {
   const { userId, pageId } = useParams();

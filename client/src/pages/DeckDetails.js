@@ -1,14 +1,9 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useUser } from "../api/user";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { TbCards } from "react-icons/tb";
-import { SquarePen, Puzzle, Plus } from "lucide-react";
 import "../App.css";
-import FlashcardCard from "../components/FlashcardCard";
 import FlashcardCarousel from "../components/FlashcardCarousel";
-import { getTimeAgo } from "../components/CurrentUserLibraryTabs/YourDecks";
-import LoadingSpinner from "../components/LoadingSpinner";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 import DeckTitle from "../components/DeckDetails/DeckTitle";
 import DeckCreatorInfo from "../components/DeckDetails/DeckCreatorInfo";
 import DeckDescriptionBox from "../components/DeckDetails/DeckDescriptionBox";
@@ -21,19 +16,18 @@ export default function DeckDetails() {
   const navigate = useNavigate();
   const user = useUser();
   const { deckId } = useParams();
+  const deck = useDeck(deckId);
 
   useEffect(() => {
     if (user.data === null) {
       navigate("/");
     }
+    if (deck.isError) {
+      navigate('/dashboard')
+    }
   }, [user, navigate]);
 
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  const deck = useDeck(deckId);
-  console.log(deck.data);
 
   const [largeScreen, setLargeScreen] = useState(false);
 
@@ -104,7 +98,11 @@ export default function DeckDetails() {
           <div className="flex px-2 pb-2 text-2xl font-bold">
             {deck.data.cards.length} terms
           </div>
-          <TermsList deckId ={deck.data.id} cards={deck.data.cards} isCurrentUser={isCurrentUser} />
+          <TermsList
+            deckId={deck.data.id}
+            cards={deck.data.cards}
+            isCurrentUser={isCurrentUser}
+          />
           {isCurrentUser && <NewCards />}
         </div>
       </div>

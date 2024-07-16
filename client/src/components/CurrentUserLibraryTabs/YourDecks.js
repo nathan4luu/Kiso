@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { formatDate, formatDistanceToNow } from "date-fns";
-import LoadingSpinner from "../LoadingSpinner";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 export const getTimeAgo = (timestamp) => {
   const formattedTime = formatDistanceToNow(new Date(timestamp), {

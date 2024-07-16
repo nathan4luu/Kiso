@@ -1,10 +1,9 @@
 import { Search, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useNavigate, useLocation, redirect } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function SearchBar() {
   const [query, setQuery] = useState("");
-  const [searchHistory, setSearchHistory] = useState([]);
 
   const location = useLocation();
   const navigate = useNavigate();

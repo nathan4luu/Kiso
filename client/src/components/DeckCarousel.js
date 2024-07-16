@@ -3,9 +3,9 @@ import DeckCard from "../components/DeckCard";
 import { ChevronLeft, ChevronRight, Loader } from "lucide-react";
 import axios from "axios";
 import { useUser } from "../api/user";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingSpinner from "./ui/LoadingSpinner";
 
-export default function DeckCarousel({currentUser}) {
+export default function DeckCarousel({ currentUser }) {
   const [startIndex, setStartIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(2);
 
@@ -17,9 +17,10 @@ export default function DeckCarousel({currentUser}) {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4040/api/decks/clxz5b8ve0000tc8i7ue3nv3d", {withCredentials: true,}
-        ); 
-        setData(response.data); 
+          "http://localhost:4040/api/decks/clxz5b8ve0000tc8i7ue3nv3d",
+          { withCredentials: true }
+        );
+        setData(response.data);
         setLoading(false);
       } catch (error) {
         setError(error);
@@ -49,7 +50,7 @@ export default function DeckCarousel({currentUser}) {
     // Clean up
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  
+
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -178,7 +179,10 @@ export default function DeckCarousel({currentUser}) {
           }}
         >
           {decks.map((deck, index) => (
-            <div key={index} className={`relative w-1/2 md:w-1/3 px-2 flex-none`}>
+            <div
+              key={index}
+              className={`relative w-1/2 md:w-1/3 px-2 flex-none`}
+            >
               <DeckCard
                 key={index}
                 id={deck.id}
@@ -189,7 +193,7 @@ export default function DeckCarousel({currentUser}) {
                 userId={deck.userId}
                 profilePhoto={deck.profilePhoto}
                 favorited={deck.favorited}
-                currentUser = {currentUser}
+                currentUser={currentUser}
               />
             </div>
           ))}

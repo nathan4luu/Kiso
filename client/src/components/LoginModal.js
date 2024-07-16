@@ -1,12 +1,11 @@
 import { useState } from "react";
 import GoogleLogo from "../assets/images/google-icon.svg";
 import { useUser } from "../api/user";
-import { Link, Navigate, redirect, useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 
 export default function LoginModal() {
   const [googleLoading, setGoogleLoading] = useState(false);
   const user = useUser();
-  const navigate = useNavigate();
 
   const redirecToGoogleSSO = async () => {
     const googleLoginURL = "http://localhost:4040/auth/google";
@@ -51,9 +50,10 @@ export default function LoginModal() {
 
         <button
           disabled={googleLoading}
-          onClick={() =>
-            (window.location.href = "http://localhost:4040/auth/google")
-          }
+          onClick={() => {
+            setGoogleLoading(true);
+            window.location.href = "http://localhost:4040/auth/google";
+          }}
           className={`w-full hover:bg-gray-200 rounded-lg border ${
             googleLoading ? "cursor-not-allowed opacity-50" : ""
           }`}

@@ -15,7 +15,6 @@ export default function DeckCard({
   currentUser,
 }) {
   const [isActive, setIsActive] = useState(favorited || false);
-  const [isHovered, setIsHovered] = useState(false);
 
   const toggleState = (e) => {
     e.preventDefault();

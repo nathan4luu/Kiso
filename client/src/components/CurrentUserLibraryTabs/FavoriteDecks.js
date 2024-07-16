@@ -3,7 +3,7 @@ import { CalendarSearch } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getTimeAgo } from "./YourDecks";
-import LoadingSpinner from "../LoadingSpinner";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 export default function FavoriteDecks({ currentUserId }) {
   const [favoriteDecks, setFavoriteDecks] = useState([]);

@@ -64,7 +64,7 @@ export default function DeckCarousel({ currentUser }) {
         user: data.user.name,
         userId: data.user.id,
         profilePhoto: data.user.profilePhoto,
-        favorited: data.FavoriteDeck.length > 0,
+        favorited: data.favoriteDecks.length > 0,
       },
       {
         id: 2,

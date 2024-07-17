@@ -54,7 +54,7 @@ export default function DeckDetails() {
     return (
       <div className="py-8 gap-4">
         {/* Title and Days edited*/}
-        <DeckTitle title={deck.data.title} editedAt={deck.data.editedAt} />
+        <DeckTitle title={deck.data.title} editedAt={deck.data.editedAt} favoritesCount={deck.data.favoriteDecks.length} isCurrentUser={isCurrentUser}/>
 
         {/* creator + description + flashcard carosel + activities */}
         <div className={`${largeScreen && "flex"} pt-4 pb-8 gap-2 border-b-2`}>
@@ -77,7 +77,7 @@ export default function DeckDetails() {
                 />
 
                 {/* Box with "Description" */}
-                {deck.data.description && (
+                {(deck.data.description || isCurrentUser) && (
                   <DeckDescriptionBox
                     title={deck.data.title}
                     description={deck.data.description}

@@ -38,6 +38,7 @@ export const useCreateCard = (deckId) => {
       if (previousDeck) {
         queryClient.setQueryData(["deck", deckId], (oldDeck) => ({
           ...oldDeck,
+          editedAt: newCardData.editedAt,
           cards: [...oldDeck.cards, { ...newCardData }],
         }));
       }
@@ -53,7 +54,7 @@ async function deleteCard({ cardId }) {
       `http://localhost:4040/api/cards/${cardId}`,
       { withCredentials: true }
     );
-    return cardId;
+    return response.data;
   } catch (error) {
     console.log("Error deleting card:", error);
     throw error;
@@ -64,12 +65,13 @@ export const useDeleteCard = (deckId) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: deleteCard,
-    onSuccess: (deletedCardId) => {
+    onSuccess: (data) => {
       const previousDeck = queryClient.getQueriesData(["deck", deckId]);
       if (previousDeck) {
         queryClient.setQueryData(["deck", deckId], (oldDeck) => ({
           ...oldDeck,
-          cards: oldDeck.cards.filter((card) => card.id !== deletedCardId),
+          editedAt: data.deck.editedAt,
+          cards: oldDeck.cards.filter((card) => card.id !== data.id),
         }));
       }
       return { previousDeck };
@@ -88,7 +90,6 @@ async function editCard({ cardId, term, definition }) {
       },
       { withCredentials: true }
     );
-    console.log(response.data.updatedCard);
     return response.data;
   } catch (error) {
     console.log("Error editing card:", error);
@@ -106,6 +107,7 @@ export const useEditCard = (deckId) => {
       if (previousDeck) {
         queryClient.setQueryData(["deck", deckId], (oldDeck) => ({
           ...oldDeck,
+          editedAt: editedCardData.editedAt,
           cards: oldDeck.cards.map((card) =>
             card.id === editedCardData.id ? editedCardData : card
           ),

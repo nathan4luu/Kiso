@@ -12,17 +12,7 @@ router.get("/decks/:deckId", isLoggedIn, async (req, res) => {
     const deck = await prisma.deck.findUnique({
       where: { id: deckId },
       include: {
-        user: true, // Include the user associated with the deck
-        cards: {
-          orderBy: {
-            createdAt: "asc", // Order cards by createdAt in ascending order
-          },
-        },
-        FavoriteDeck: {
-          where: {
-            userId: req.session.user.id,
-          },
-        },
+        user: true,
       },
     });
 
@@ -30,7 +20,29 @@ router.get("/decks/:deckId", isLoggedIn, async (req, res) => {
       return res.status(404).json({ message: "Deck not found" });
     }
 
-    res.json(deck);
+    const isCreator = deck.userId === req.session.user.id;
+
+    const deckWithFavorites = await prisma.deck.findUnique({
+      where: { id: deckId },
+      include: {
+        user: true, // Include the user associated with the deck
+        cards: {
+          orderBy: {
+            createdAt: "asc", // Order cards by createdAt in ascending order
+          },
+        },
+        favoriteDecks: isCreator
+          ? {}
+          : {
+              // Include all favorite decks if user is creator, else include only user's favorite deck
+              where: {
+                userId: req.session.user.id,
+              },
+            },
+      },
+    });
+
+    res.json(deckWithFavorites);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
@@ -140,7 +152,7 @@ router.delete("/cards/:cardId", isLoggedIn, async (req, res) => {
       where: { id: cardId },
       include: {
         deck: true,
-      }
+      },
     });
 
     if (!card) {
@@ -175,8 +187,8 @@ router.put("/cards/:cardId", isLoggedIn, async (req, res) => {
     const existingCard = await prisma.card.findUnique({
       where: { id: cardId },
       include: {
-        deck: true
-      }
+        deck: true,
+      },
     });
 
     if (!existingCard) {

@@ -34,7 +34,6 @@ export default function NewCards() {
 
   const handleSubmitNewCard = (index) => {
     const { term, definition } = cards[index];
-    console.log(deckId);
     const newCardId = createId();
 
     if (!term.slice() || !definition.slice()) {

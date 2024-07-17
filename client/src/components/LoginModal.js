@@ -49,7 +49,6 @@ export default function LoginModal() {
         </div>
 
         <button
-          disabled={googleLoading}
           onClick={() => {
             setGoogleLoading(true);
             window.location.href = "http://localhost:4040/auth/google";

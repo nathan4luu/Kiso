@@ -9,7 +9,7 @@ export default function FlashcardCard({term, definition}) {
   };
 
   return (
-    <div className="flashcard-container" onClick={handleClick}>
+    <div className="flashcard-container rounded-lg" onClick={handleClick}>
       <div
         onClick={handleClick}
         className={`border rounded-lg bg-white flashcard text-xl text-center ${

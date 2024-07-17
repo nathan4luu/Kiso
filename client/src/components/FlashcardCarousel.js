@@ -28,7 +28,7 @@ export default function FlashcardCarousel({ cards }) {
         }}
       >
         {cards.map((card, index) => (
-          <div key={index} className="px-2 relative w-full flex-none">
+          <div key={index} className="px-2 relative w-full flex-none rounded-lg">
             <FlashcardCard term={card.term} definition={card.definition} />
           </div>
         ))}

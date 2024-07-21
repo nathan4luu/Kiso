@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { Star } from "lucide-react";
 import { useState } from "react";
 import { useUser } from "../api/user";
+import FavoriteStar from "./FavoriteStar";
 
 export default function DeckCard({
   id,
@@ -31,19 +32,21 @@ export default function DeckCard({
             {title}
           </h1>
           {currentUser !== userId && (
-            <div onClick={toggleState}>
-              <Star
-                className="h-6 w-6 transition-colors duration-300 ease-in-out"
-                fill={`${isActive ? "#FFD700" : "transparent"}`}
-                color={`${isActive ? "#FFD700" : "gray"}`}
-              />
-            </div>
+            <FavoriteStar favorited={favorited} deckId={id} userId={userId}/>
           )}
         </div>
         <div className="inline-block rounded-full bg-gray-200 px-2 py-1 text-xs font-semibold ">
           {termCount} terms
         </div>
-        <p className="pt-3 line-clamp-3 md:line-clamp-2 h-16">{description}</p>
+        {description ? (
+          <p className="pt-3 line-clamp-3 md:line-clamp-2 h-16">
+            {description}
+          </p>
+        ) : (
+          <p className="pt-3 italic md:line-clamp-2 h-16">
+            No description available.
+          </p>
+        )}
       </Link>
 
       <div className="pt-6 flex gap-2 items-center">

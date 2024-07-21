@@ -14,6 +14,7 @@ export default function TermsList({ deckId, cards, isCurrentUser }) {
             definition={card.definition}
             isCurrentUser={isCurrentUser}
             deckId={deckId}
+            totalCardsCount = {cards.length}
           />
         </div>
       ))}

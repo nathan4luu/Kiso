@@ -54,7 +54,7 @@ export default function LoginModal() {
             window.location.href = "http://localhost:4040/auth/google";
           }}
           className={`w-full hover:bg-gray-200 rounded-lg border ${
-            googleLoading ? "cursor-not-allowed opacity-50" : ""
+            googleLoading ? "opacity-50" : ""
           }`}
         >
           <div className="flex justify-center py-2">

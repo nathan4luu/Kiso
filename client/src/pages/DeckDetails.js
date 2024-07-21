@@ -23,11 +23,9 @@ export default function DeckDetails() {
       navigate("/");
     }
     if (deck.isError) {
-      navigate('/dashboard')
+      navigate("/dashboard");
     }
   }, [user, navigate]);
-
-
 
   const [largeScreen, setLargeScreen] = useState(false);
 
@@ -54,7 +52,14 @@ export default function DeckDetails() {
     return (
       <div className="py-8 gap-4">
         {/* Title and Days edited*/}
-        <DeckTitle title={deck.data.title} editedAt={deck.data.editedAt} favoritesCount={deck.data.favoriteDecks.length} isCurrentUser={isCurrentUser}/>
+        <DeckTitle
+          title={deck.data.title}
+          editedAt={deck.data.editedAt}
+          favoritesCount={deck.data.favoriteDecks.length}
+          isCurrentUser={isCurrentUser}
+          deckId={deck.data.id}
+          userId = {user.data.id}
+        />
 
         {/* creator + description + flashcard carosel + activities */}
         <div className={`${largeScreen && "flex"} pt-4 pb-8 gap-2 border-b-2`}>
@@ -79,6 +84,7 @@ export default function DeckDetails() {
                 {/* Box with "Description" */}
                 {(deck.data.description || isCurrentUser) && (
                   <DeckDescriptionBox
+                    deckId={deck.data.id}
                     title={deck.data.title}
                     description={deck.data.description}
                     largeScreen={largeScreen}

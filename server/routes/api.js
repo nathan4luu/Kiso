@@ -49,6 +49,44 @@ router.get("/decks/:deckId", isLoggedIn, async (req, res) => {
   }
 });
 
+router.put("/decks/:deckId", isLoggedIn, async (req, res) => {
+  const { deckId } = req.params;
+  const { title, description } = req.body; // Destructure title and description directly
+
+  try {
+    const existingDeck = await prisma.deck.findUnique({
+      where: { id: deckId },
+      include: {
+        user: true,
+      },
+    });
+
+    if (!existingDeck) {
+      return res.status(404).json({ message: "Deck not found" }); // Use status(404) instead of send(404)
+    }
+
+    if (existingDeck.user.id !== req.session.user.id) {
+      return res.sendStatus(401);
+    }
+
+    const updatedDeck = await prisma.deck.update({ // Use prisma.deck.update to update the deck
+      where: { id: deckId },
+      data: {
+        title,
+        description,
+      },
+      include: {
+        user: true,
+      },
+    });
+
+    res.json(updatedDeck);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error." });
+  }
+});
+
 router.get("/users/:userId/decks/created", isLoggedIn, async (req, res) => {
   const { userId } = req.params;
 

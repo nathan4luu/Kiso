@@ -10,11 +10,14 @@ export default function TermCard({
   definition,
   isCurrentUser,
   deckId,
+  totalCardsCount,
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editTerm, setTerm] = useState(term);
   const [editDefinition, setDefinition] = useState(definition);
   const [error, setError] = useState(null);
+
+  const [modalError, setModalError] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
   const termRef = useRef(null);
@@ -52,6 +55,7 @@ export default function TermCard({
         definition: editDefinition,
       });
       setIsEditing(false);
+      setError(null);
     } catch (error) {
       console.error("Error editing card:", error);
     }
@@ -118,7 +122,10 @@ export default function TermCard({
                 <Tooltip text="Discard changes" position="right">
                   <button
                     className="flex p-2 justify-end rounded-full items-start text-gray-400 hover:text-black hover:bg-gray-200 transition-all duration-300"
-                    onClick={() => setIsEditing(false)}
+                    onClick={() => {
+                      setIsEditing(false);
+                      setError(null);
+                    }}
                   >
                     <X width={18} height={18} />
                   </button>
@@ -132,9 +139,12 @@ export default function TermCard({
               <Tooltip text="Delete card" position="bottom">
                 <button
                   className="rounded-full p-2 text-white bg-red-400 hover:bg-red-600"
-                  onClick={() =>
-                    document.getElementById(`deleteModal${id}`).showModal()
-                  }
+                  onClick={() => {
+                    if (totalCardsCount <= 4) {
+                      setError("Decks must contain a minimum of four cards.");
+                    } else
+                      document.getElementById(`deleteModal${id}`).showModal();
+                  }}
                 >
                   <Trash2 />
                 </button>

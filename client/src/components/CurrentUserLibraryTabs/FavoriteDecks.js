@@ -39,27 +39,27 @@ export default function FavoriteDecks({ currentUserId }) {
         {favoriteDecks.length === 0 ? (
           <p>Favorites? What favorites? You haven't picked any yet!</p>
         ) : (
-          <div>
+          <div className="space-y-6">
             {favoriteDecks.map((favorite, index) => (
               <div
                 key={index}
-                className=" rounded-lg border-r-4 border-b-4 border-gray-100 bg-white transition-colors transition-shadow duration-300 hover:bg-gray-100 hover:border-r-4 hover:border-b-4 hover:border-[#6B46C1] hover:shadow-xl hover:shadow-[#ebe6f5]"
+                className=" rounded-lg border-r-4 border-b-4 border-gray-100 bg-white transition-colors transition-shadow duration-300 hover:bg-gray-100 hover:border-r-4 hover:border-b-4 hover:border-[#6B46C1] hover:shadow-xl hover:shadow-[#ebe6f5] dark:bg-gray-900 dark:text-white dark:hover:bg-gray-600"
               >
                 <Link to={`/decks/${favorite.deck.id}`} className="block p-4">
                   <div className="gap-2 items-center ">
-                    <div className="inline-block items-center rounded-full bg-gray-200 px-2 py-1 text-xs font-semibold">
+                    <div className="inline-block items-center rounded-full bg-gray-200 px-2 py-1 text-xs font-semibold dark:text-white dark:bg-gray-700">
                       {favorite.deck.cards.length} terms
                     </div>
                     <div className="text-2xl font-semibold line-clamp-1 pt-1">
                       {favorite.deck.title}
                     </div>
-                    <div className="italic text-s text-slate-500">
+                    <div className="italic text-s text-slate-500 dark:text-slate-300">
                       Favorited {getTimeAgo(favorite.favoritedAt)}
                     </div>
                   </div>
                 </Link>
               </div>
-            ))}
+            )).reverse()}
           </div>
         )}
       </div>

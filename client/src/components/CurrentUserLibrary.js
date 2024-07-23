@@ -26,7 +26,7 @@ export default function CurrentUserLibrary() {
                 className={`inline-block p-4 border-b-2 rounded-t-lg ${
                   activeTab === tab
                     ? "text-[#6B46C1] border-[#6B46C1]"
-                    : "border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                    : "border-transparent transition-all duration-300 hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
                 }`}
                 aria-current={activeTab === tab ? "page" : undefined}
               >

@@ -49,7 +49,7 @@ export default function YourDecks({ currentUserId }) {
             {yourDecks.map((deck, index) => (
               <div
                 key={index}
-                className=" rounded-lg border-r-4 border-b-4 border-gray-100 bg-white transition-colors transition-shadow duration-300 hover:bg-gray-100 hover:border-r-4 hover:border-b-4 hover:border-[#6B46C1] hover:shadow-xl hover:shadow-[#ebe6f5]"
+                className=" rounded-lg border-r-4 border-b-4 border-gray-100 bg-white transition-all duration-300 duration-300 hover:bg-gray-100 hover:border-r-4 hover:border-b-4 hover:border-[#6B46C1] hover:shadow-xl hover:shadow-[#ebe6f5]"
               >
                 <Link to={`/decks/${deck.id}`} className="block p-4">
                   <div className="gap-2 items-center ">

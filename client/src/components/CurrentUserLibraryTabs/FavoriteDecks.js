@@ -43,7 +43,7 @@ export default function FavoriteDecks({ currentUserId }) {
             {favoriteDecks.map((favorite, index) => (
               <div
                 key={index}
-                className=" rounded-lg border-r-4 border-b-4 border-gray-100 bg-white transition-colors transition-shadow duration-300 hover:bg-gray-100 hover:border-r-4 hover:border-b-4 hover:border-[#6B46C1] hover:shadow-xl hover:shadow-[#ebe6f5] dark:bg-gray-900 dark:text-white dark:hover:bg-gray-600"
+                className=" rounded-lg border-r-4 border-b-4 border-gray-100 bg-white transition-all duration-300 hover:bg-gray-100 hover:border-r-4 hover:border-b-4 hover:border-[#6B46C1] hover:shadow-xl hover:shadow-[#ebe6f5] dark:bg-gray-900 dark:text-white dark:hover:bg-gray-600"
               >
                 <Link to={`/decks/${favorite.deck.id}`} className="block p-4">
                   <div className="gap-2 items-center ">

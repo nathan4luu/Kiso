@@ -17,6 +17,8 @@ import DeckDetails from "../pages/DeckDetails";
 import SearchResults from "../pages/SearchResults";
 import Loading from "../pages/Loading";
 import Flashcards from "../pages/Flashcards";
+import Matching from "../pages/Matching";
+import PracticeQuiz from "../pages/PracticeQuiz";
 
 export default function Router() {
   const user = useUser();
@@ -24,7 +26,7 @@ export default function Router() {
   const isAuthenticated = user.data !== null && user.data !== undefined;
 
   console.log("isauth: " + isAuthenticated);
-  console.log("user: " + user.data)
+  console.log("user: " + user.data);
 
   const PublicLayout = () => {
     return (
@@ -69,12 +71,19 @@ export default function Router() {
 
           <Route path="/" element={<PublicLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/user/:userId/library/:pageId?" element={<UserLibrary />} />
+            <Route
+              path="/user/:userId/library/:pageId?"
+              element={<UserLibrary />}
+            />
             <Route path="/decks/:deckId" element={<DeckDetails />} />
-            <Route path="/decks/:deckId/flashcards" element={<Flashcards />}/>
+            <Route path="/decks/:deckId/flashcards" element={<Flashcards />} />
+            <Route path="/decks/:deckId/matching" element={<Matching />} />
+            <Route
+              path="/decks/:deckId/practice-quiz"
+              element={<PracticeQuiz />}
+            />
             <Route path="/search" element={<SearchResults />} />
           </Route>
-          
 
           <Route path="/logout/loading" element={<Loading />}></Route>
         </Routes>

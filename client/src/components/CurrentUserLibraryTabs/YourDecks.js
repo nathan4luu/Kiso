@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { formatDate, formatDistanceToNow } from "date-fns";
 import LoadingSpinner from "../ui/LoadingSpinner";
+import { Plus } from "lucide-react";
 
 export const getTimeAgo = (timestamp) => {
   const formattedTime = formatDistanceToNow(new Date(timestamp), {
@@ -43,9 +44,15 @@ export default function YourDecks({ currentUserId }) {
     return (
       <div>
         {yourDecks.length === 0 ? (
-          <p>Be the hero your study sessions need. Create your first deck!</p>
+          <div>
+            <p>Be the hero your study sessions need. Create your first deck!</p>
+          </div>
         ) : (
           <div>
+            <div className="flex transition-all duration-300 items-center py-4 justify-center text-xl font-normal hover:font-bold rounded-lg bg-white text-[#6B46C1] hover:bg-[#ebe6f5] mb-8 border-r-4 border-b-4 border-gray-100 bg-white duration-300 hover:bg-gray-100 hover:border-r-4 hover:border-b-4 hover:border-[#6B46C1] hover:shadow-xl hover:shadow-[#ebe6f5]">
+              <Plus />
+              <div className="line-clamp-1">Create New Deck</div>
+            </div>
             {yourDecks.map((deck, index) => (
               <div
                 key={index}

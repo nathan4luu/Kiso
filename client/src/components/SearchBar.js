@@ -4,9 +4,29 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 export default function SearchBar() {
   const [query, setQuery] = useState("");
+  const [placeholder, setPlaceholder] = useState("Search Kiso...");
+
 
   const location = useLocation();
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      setPlaceholder(window.innerWidth < 500 ? "Search..." : "Search Kiso...");
+    };
+
+    // Set initial placeholder
+    handleResize();
+
+    // Add resize event listener
+    window.addEventListener("resize", handleResize);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     if (location.pathname !== "/search") {
@@ -14,7 +34,6 @@ export default function SearchBar() {
     }
   }, [location]);
 
-  const placeholder = window.innerWidth < 768 ? "Search..." : "Search Kiso..."
 
   return (
     <>

@@ -21,5 +21,8 @@ module.exports = {
   plugins: [
     require('daisyui'),
   ],
+  daisyui: {
+    darkTheme: false, // Explicitly set darkTheme to false to disable dark mode
+  },
 }
 

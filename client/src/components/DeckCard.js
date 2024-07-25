@@ -27,8 +27,8 @@ export default function DeckCard({
   return (
     <div className="rounded-lg border-b-4 border-gray-100 bg-white transition-all duration-300 ease-in-out hover:bg-gray-100 hover:border-b-4 hover:border-[#6B46C1] hover:shadow-xl hover:shadow-[#ebe6f5]">
       <Link to={`/decks/${id}`} className="block p-2 space-y-1 group">
-        <div className="flex gap-2 items-center ">
-          <h1 className="text-2xl font-semibold py-1 line-clamp-2 md:line-clamp-3 lg:line-clamp-4 h-16 md:h-auto flex-grow hover:text-[#6B46C1]">
+        <div className="flex gap-2 items-center pt-1">
+          <h1 className="text-2xl mb-1 font-semibold line-clamp-1 lg:line-clamp-2 h-16 md:h-auto flex-grow hover:text-[#6B46C1]">
             {title}
           </h1>
           {currentUser !== userId && (

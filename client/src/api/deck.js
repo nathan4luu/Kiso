@@ -50,7 +50,10 @@ export const useEditDeck = () => {
   return useMutation({
     mutationFn: editDeck,
     onSuccess: (editedDeckData) => {
-      const previousDeck = queryClient.getQueryData(["deck", editedDeckData.id]);
+      const previousDeck = queryClient.getQueryData([
+        "deck",
+        editedDeckData.id,
+      ]);
       if (previousDeck) {
         queryClient.setQueryData(["deck", editedDeckData.id], (oldDeck) => ({
           ...oldDeck,
@@ -60,7 +63,33 @@ export const useEditDeck = () => {
         }));
       }
 
-      return { previousDeck }
+      return { previousDeck };
     },
+  });
+};
+
+async function getShuffledCards({ queryKey }) {
+    const [, deckId, limit] = queryKey;
+
+    try {
+        const response = await axios.get(
+          `http://localhost:4040/api/cards/${deckId}/matching/`,
+          {
+            params: { limit }, // Use `params` to send query parameters
+            withCredentials: true,
+          }
+        );
+        return response.data;
+      } catch (error) {
+        console.error("Error getting shuffled cards:", error.message || error);
+        throw new Error("Failed to fetch shuffled cards.");
+      }
+}
+
+export const useShuffledCards = (deckId, limit) => {
+  return useQuery({
+    queryKey: ["deck", deckId, limit],
+    queryFn: getShuffledCards,
+    refetchOnWindowFocus: false,
   });
 };

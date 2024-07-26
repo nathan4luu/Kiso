@@ -69,7 +69,7 @@ router.put("/decks/:deckId", isLoggedIn, async (req, res) => {
       return res.sendStatus(401);
     }
 
-    const updatedDeck = await prisma.deck.update({ // Use prisma.deck.update to update the deck
+    const updatedDeck = await prisma.deck.update({
       where: { id: deckId },
       data: {
         title,
@@ -250,6 +250,57 @@ router.put("/cards/:cardId", isLoggedIn, async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error." });
+  }
+});
+
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+  }
+  return array;
+};
+
+router.get("/cards/:deckId/matching", isLoggedIn, async (req, res) => {
+  const { deckId } = req.params;
+  const limit = parseInt(req.query.limit, 10) || 4;
+  try {
+    const existingDeck = await prisma.deck.findUnique({
+      where: {
+        id: deckId,
+      },
+      select: {
+        cards: true,
+      },
+    });
+
+    if (!existingDeck) {
+      return res.status(404).json({ message: "Deck not found" });
+    }
+
+    const terms = [];
+    const tempCards = shuffleArray(existingDeck.cards).slice(0, limit);
+
+    tempCards.forEach((card) => {
+      terms.push({
+        id: card.id,
+        text: card.term,
+        type: "term",
+      });
+
+      terms.push({
+        id: card.id,
+        text: card.definition,
+        type: "definition",
+      });
+    });
+
+    const cards = shuffleArray(terms);
+
+    res.json(cards);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
   }
 });
 

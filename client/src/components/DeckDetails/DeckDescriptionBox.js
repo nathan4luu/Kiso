@@ -65,8 +65,8 @@ export default function DeckDescriptionBox({
     try {
       editDeckMutation.mutate({
         deckId: deckId,
-        title: newTitle,
-        description: newDescription,
+        title: newTitle.trim(),
+        description: newDescription.trim(),
       });
       setIsEditing(false);
       setError("");
@@ -108,19 +108,13 @@ export default function DeckDescriptionBox({
               document.getElementById("editDescriptionModal").showModal();
             }}
           >
-            Add a description!
+            Add description
           </button>
         )}
       </div>
 
       <dialog id="editDescriptionModal" className="modal" ref={modalRef}>
         <div className="relative modal-box">
-          <div
-            className={`rounded-lg bg-white text-md h-full${
-              largeScreen ? " col-span-3" : "w-full"
-            }`}
-            style={{ minHeight: "fit-content" }}
-          >
             <div className="flex font-bold text-xl items-center justify-between">
               <input
                 type="text"
@@ -137,7 +131,7 @@ export default function DeckDescriptionBox({
                 onChange={(e) => setNewDescription(e.target.value)}
                 onInput={(e) => handleTextAreaResize(e.target)}
                 className="bg-gray-50 focus:bg-purple-secondary rounded-lg w-full p-2 mt-2 outline-none resize-none overflow-hidden"
-                placeholder="Enter description (or don't, we won't care)"
+                placeholder="Enter description (optional)"
                 rows="1"
                 maxLength={maxDescriptionChars}
               />
@@ -159,7 +153,6 @@ export default function DeckDescriptionBox({
               </Tooltip>
             </div>
           </div>
-        </div>
       </dialog>
     </>
   );

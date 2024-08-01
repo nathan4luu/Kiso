@@ -51,8 +51,8 @@ export default function TermCard({
     try {
       editCardMutation.mutate({
         cardId: cardId,
-        term: editTerm,
-        definition: editDefinition,
+        term: editTerm.trim(),
+        definition: editDefinition.trim(),
       });
       setIsEditing(false);
       setError(null);
@@ -101,7 +101,7 @@ export default function TermCard({
                 value={editTerm}
                 onChange={handleTermChange}
                 onInput={(e) => handleTextAreaResize(e.target)}
-                className="mt-1 block w-full p-2 border-b-2 border-gray-300 text-center focus:text-start focus:border-purple-main focus:outline-none focus:ring-0 resize-none"
+                className="mt-1 block w-full p-2 border-b-2 border-gray-300 text-center focus:text-start focus:border-purple-main focus:outline-none focus:ring-0 resize-none overflow-hidden"
                 rows="1"
                 placeholder="Enter term"
               />
@@ -112,7 +112,7 @@ export default function TermCard({
                 value={editDefinition}
                 onChange={handleDefinitionChange}
                 onInput={(e) => handleTextAreaResize(e.target)}
-                className="mt-1 block w-full p-2 border-b-2 border-gray-300 focus:border-purple-main focus:outline-none focus:ring-0 resize-none"
+                className="mt-1 block w-full p-2 border-b-2 border-gray-300 focus:border-purple-main focus:outline-none focus:ring-0 resize-none overflow-hidden"
                 rows="1"
                 placeholder="Enter definition"
               />
@@ -141,7 +141,7 @@ export default function TermCard({
                   className="rounded-full p-2 text-white bg-red-400 hover:bg-red-600"
                   onClick={() => {
                     if (totalCardsCount <= 4) {
-                      setError("Decks must contain a minimum of four cards.");
+                      setError("Decks must contain at least four cards");
                     } else
                       document.getElementById(`deleteModal${id}`).showModal();
                   }}

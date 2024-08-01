@@ -38,13 +38,18 @@ export default function NewCards() {
 
     if (!term.slice() || !definition.slice()) {
       const newCards = [...cards];
-      newCards[index].error = "Term and Definition cannot be empty.";
+      newCards[index].error = "*Term and Definition cannot be empty*";
       setCards(newCards);
       return;
     }
 
     try {
-      mutation.mutate({ newCardId, term, definition, deckId });
+      mutation.mutate({
+        newCardId: newCardId.trim(),
+        term: term.trim(),
+        definition: definition.trim(),
+        deckId: deckId,
+      });
       handleDeleteNewCard(index);
     } catch (error) {
       console.log("Error creating card", error);
@@ -83,7 +88,7 @@ export default function NewCards() {
                 value={item.term}
                 onChange={(event) => handleTermChange(index, event)}
                 onInput={handleTextAreaResize}
-                className="mt-1 block w-full p-2 border-b-2 border-gray-300 text-center focus:text-start focus:border-purple-main focus:outline-none focus:ring-0 resize-none"
+                className="mt-1 block w-full p-2 border-b-2 border-gray-300 text-center focus:text-start focus:border-purple-main focus:outline-none focus:ring-0 resize-none overflow-hidden"
                 rows="1"
                 placeholder="Enter term"
               />
@@ -93,7 +98,7 @@ export default function NewCards() {
                 value={item.definition}
                 onChange={(event) => handleDefinitionChange(index, event)}
                 onInput={handleTextAreaResize}
-                className="mt-1 block w-full p-2 border-b-2 border-gray-300 focus:border-purple-main focus:outline-none focus:ring-0 resize-none"
+                className="mt-1 block w-full p-2 border-b-2 border-gray-300 focus:border-purple-main focus:outline-none focus:ring-0 resize-none overflow-hidden"
                 rows="1"
                 placeholder="Enter definition"
               />
@@ -131,7 +136,7 @@ export default function NewCards() {
         onClick={handleAddNewCard}
       >
         <Plus />
-        Add New Term(s)
+        Add new card(s)
       </div>
     </div>
   );

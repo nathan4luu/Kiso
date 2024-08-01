@@ -39,7 +39,7 @@ model Deck {
   editedAt  DateTime @updatedAt
 
   cards        Card[]
-  FavoriteDeck FavoriteDeck[]
+  favoriteDecks FavoriteDeck[]
 }
 
 model Card {

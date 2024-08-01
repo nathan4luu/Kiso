@@ -304,4 +304,55 @@ router.get("/cards/:deckId/matching", isLoggedIn, async (req, res) => {
   }
 });
 
+router.post("/decks", isLoggedIn, async (req, res) => {
+  const { userId, title, description, cards } = req.body;
+  try {
+    const newDeck = await prisma.deck.create({
+      data: {
+        userId: userId,
+        title: title,
+        description: description,
+      },
+    });
+
+    for (const card of cards) {
+      await prisma.card.create({
+        data: {
+          deckId: newDeck.id,
+          term: card.term,
+          definition: card.definition,
+        },
+      });
+    }
+    console.log("new deck created: ", newDeck);
+    res.json(newDeck);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+router.delete("/decks/:deckId", isLoggedIn, async (req, res) => {
+  const { deckId } = req.params;
+  try {
+    const deck = await prisma.deck.findUnique({
+      where: {
+        id: deckId,
+      },
+    });
+
+    if (!deck) {
+      return res.status(404).json({ message: "Deck not found." });
+    }
+    const deletedDeck = await prisma.deck.delete({
+      where: {
+        id: deckId,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 export default router;

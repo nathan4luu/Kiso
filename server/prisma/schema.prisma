@@ -39,12 +39,12 @@ model Deck {
   editedAt  DateTime @updatedAt
 
   cards        Card[]
-  favoriteDecks FavoriteDeck[]
+  FavoriteDeck FavoriteDeck[]
 }
 
 model Card {
   id     String @id @default(cuid())
-  deck   Deck   @relation(fields: [deckId], references: [id])
+  deck   Deck   @relation(fields: [deckId], references: [id], onDelete: Cascade)
   deckId String
 
   term       String

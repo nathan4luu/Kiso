@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { UNSAFE_ErrorResponseImpl } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 async function getDeck({ queryKey }) {
   const [, deckId] = queryKey;
@@ -69,21 +69,21 @@ export const useEditDeck = () => {
 };
 
 async function getShuffledCards({ queryKey }) {
-    const [, deckId, limit] = queryKey;
+  const [, deckId, limit] = queryKey;
 
-    try {
-        const response = await axios.get(
-          `http://localhost:4040/api/cards/${deckId}/matching/`,
-          {
-            params: { limit }, // Use `params` to send query parameters
-            withCredentials: true,
-          }
-        );
-        return response.data;
-      } catch (error) {
-        console.error("Error getting shuffled cards:", error.message || error);
-        throw new Error("Failed to fetch shuffled cards.");
+  try {
+    const response = await axios.get(
+      `http://localhost:4040/api/cards/${deckId}/matching/`,
+      {
+        params: { limit }, // Use `params` to send query parameters
+        withCredentials: true,
       }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error getting shuffled cards:", error.message || error);
+    throw new Error("Failed to fetch shuffled cards.");
+  }
 }
 
 export const useShuffledCards = (deckId, limit) => {
@@ -93,3 +93,33 @@ export const useShuffledCards = (deckId, limit) => {
     refetchOnWindowFocus: false,
   });
 };
+
+async function createDeck({ userId, title, description, cards }) {
+  try {
+    const response = await axios.post(
+      "http://localhost:4040/api/decks",
+      {
+        userId: userId,
+        title: title,
+        description: description,
+        cards: cards,
+      },
+      { withCredentials: true }
+    );
+    return response.data;
+  } catch (error) {
+    console.log("Error creating deck:", error);
+    throw error;
+  }
+}
+
+export const useCreateDeck = () => {
+  const navigate= useNavigate();
+  return useMutation({
+    mutationFn: createDeck,
+    onSuccess: (newDeckData) => {
+      console.log(newDeckData.id)
+      navigate(`/decks/${newDeckData.id}`)
+    }
+  })
+}

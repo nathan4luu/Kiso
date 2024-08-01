@@ -19,6 +19,7 @@ import Loading from "../pages/Loading";
 import Flashcards from "../pages/Flashcards";
 import Matching from "../pages/Matching";
 import PracticeQuiz from "../pages/PracticeQuiz";
+import CreateDeck from "../pages/CreateDeck";
 
 export default function Router() {
   const user = useUser();
@@ -75,6 +76,7 @@ export default function Router() {
               path="/user/:userId/library/:pageId?"
               element={<UserLibrary />}
             />
+            <Route path="/user/:userId/create/deck" element={<CreateDeck />} />
             <Route path="/decks/:deckId" element={<DeckDetails />} />
             <Route path="/decks/:deckId/flashcards" element={<Flashcards />} />
             <Route path="/decks/:deckId/matching" element={<Matching />} />

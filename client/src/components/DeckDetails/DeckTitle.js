@@ -1,6 +1,7 @@
-import { Clock, LeafyGreen, Star } from "lucide-react";
+import { Clock, LeafyGreen, Star, Trash2 } from "lucide-react";
 import { getTimeAgo } from "../CurrentUserLibraryTabs/YourDecks";
 import FavoriteStar from "../FavoriteStar";
+import Tooltip from "../ui/Tooltip";
 
 export default function DeckTitle({
   title,
@@ -11,9 +12,9 @@ export default function DeckTitle({
   userId,
 }) {
   return (
-    <div className="p-2">
+    <div className="p-2 relative">
       <div className="flex space-x-4 items-center mb-2">
-        <h1 className="text-4xl line-clamp-1 font-bold">{title}</h1>
+        <h1 className="text-4xl line-clamp-1 py-1 font-bold">{title}</h1>
         {!isCurrentUser && (
           <FavoriteStar
             favorited={favoritesCount > 0}
@@ -38,6 +39,17 @@ export default function DeckTitle({
           </div>
         )}
       </div>
+      {isCurrentUser && (
+        <div className="absolute inset-y-0 right-3 flex items-center">
+          <Tooltip text="Delete deck" position="left">
+            <button
+              className={`flex p-2 justify-end rounded-full items-start text-gray-400 hover:bg-gray-200 hover:text-red-500 transition-all duration-300`}
+            >
+              <Trash2 width={32} height={32} />
+            </button>
+          </Tooltip>
+        </div>
+      )}
     </div>
   );
 }

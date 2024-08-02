@@ -21,7 +21,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 24 * 60 * 60 * 1000, //one day
-    }
+    },
   })
 );
 app.use(passport.initialize());
@@ -52,17 +52,15 @@ app.get(
 
 app.get("/user", isLoggedIn, async (req, res) => {
   const userEmail = req.user._json.email;
-  let user = await prisma.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: {
       email: userEmail,
     },
-    select: {
-      id: true,
-      name: true,
-      email: true,
+    include: {
+      decks: true,
+      favoriteDecks: true,
     },
   });
-  user.pfp = req.user._json.picture;
   req.session.user = user;
   res.json(user);
 });

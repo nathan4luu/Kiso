@@ -5,6 +5,7 @@ import { formatDate, formatDistanceToNow } from "date-fns";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import { Plus, Trash, Trash2, X } from "lucide-react";
 import Tooltip from "../ui/Tooltip";
+import DeleteDeckModal from "../DeleteDeckModal";
 
 export const getTimeAgo = (timestamp) => {
   const formattedTime = formatDistanceToNow(new Date(timestamp), {
@@ -48,7 +49,10 @@ export default function YourDecks({ currentUserId }) {
           <div>
             <p>
               Be the hero your study sessions need.{" "}
-              <Link to={`/user/${currentUserId}/create/deck`} className="text-purple-main hover:underline">
+              <Link
+                to={`/user/${currentUserId}/create/deck`}
+                className="text-purple-main hover:underline"
+              >
                 Create your first deck!
               </Link>
             </p>
@@ -85,11 +89,17 @@ export default function YourDecks({ currentUserId }) {
                     <Tooltip text="Delete deck" position="left">
                       <button
                         className={`flex p-2 justify-end rounded-full items-start text-gray-400 hover:text-black hover:bg-gray-200 hover:text-red-500 transition-all duration-300`}
+                        onClick={() =>
+                          document
+                            .getElementById(`deleteDeckModal${deck.id}`)
+                            .showModal()
+                        }
                       >
                         <Trash2 width={18} height={18} />
                       </button>
                     </Tooltip>
                   </div>
+                  <DeleteDeckModal deckId={deck.id} />
                 </div>
               ))
               .reverse()}

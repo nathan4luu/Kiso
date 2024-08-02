@@ -114,12 +114,39 @@ async function createDeck({ userId, title, description, cards }) {
 }
 
 export const useCreateDeck = () => {
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   return useMutation({
     mutationFn: createDeck,
     onSuccess: (newDeckData) => {
-      console.log(newDeckData.id)
-      navigate(`/decks/${newDeckData.id}`)
-    }
-  })
+      console.log(newDeckData.id);
+      navigate(`/decks/${newDeckData.id}`);
+    },
+  });
+};
+
+async function deleteDeck({ deckId }) {
+  try {
+    const response = await axios.delete(
+      `http://localhost:4040/api/decks/${deckId}`,
+      { withCredentials: true }
+    );
+    return response.data;
+  } catch (error) {
+    console.log("Error deleting deck:", error);
+    throw error;
+  }
 }
+export const useDeleteDeck = () => {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteDeck,
+    onSuccess: (deletedDeck) => {
+      //const previousDeck = queryClient.getQueriesData(["deck"])
+      if (deletedDeck.userId) {
+        navigate(`/user/${deletedDeck.userId}/library/0`);
+      }
+    },
+  });
+};
+

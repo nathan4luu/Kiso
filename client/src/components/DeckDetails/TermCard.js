@@ -17,7 +17,6 @@ export default function TermCard({
   const [editDefinition, setDefinition] = useState(definition);
   const [error, setError] = useState(null);
 
-  const [modalError, setModalError] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
   const termRef = useRef(null);

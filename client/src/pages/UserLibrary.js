@@ -15,7 +15,7 @@ export default function UserLibrary() {
   useEffect(() => {
     if (user.data === null) {
       navigate("/");
-    }
+    } 
   }, [user, navigate]);
 
   useEffect(() => {

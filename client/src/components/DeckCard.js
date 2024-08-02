@@ -1,7 +1,5 @@
 import { Link, redirect } from "react-router-dom";
-import { Star } from "lucide-react";
 import { useState } from "react";
-import { useUser } from "../api/user";
 import FavoriteStar from "./FavoriteStar";
 
 export default function DeckCard({

@@ -49,6 +49,8 @@ export default function DeckDetails() {
   if (!deck.isLoading && !deck.error && !user.isLoading && !user.error) {
     const isCurrentUser = user.data.id === deck.data.user.id;
 
+    
+
     return (
       <div className="py-8 gap-4">
         {/* Title and Days edited*/}

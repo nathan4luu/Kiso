@@ -2,6 +2,8 @@ import { Clock, LeafyGreen, Star, Trash2 } from "lucide-react";
 import { getTimeAgo } from "../CurrentUserLibraryTabs/YourDecks";
 import FavoriteStar from "../FavoriteStar";
 import Tooltip from "../ui/Tooltip";
+import { useDeleteDeck } from "../../api/deck";
+import DeleteDeckModal from "../DeleteDeckModal";
 
 export default function DeckTitle({
   title,
@@ -44,12 +46,16 @@ export default function DeckTitle({
           <Tooltip text="Delete deck" position="left">
             <button
               className={`flex p-2 justify-end rounded-full items-start text-gray-400 hover:bg-gray-200 hover:text-red-500 transition-all duration-300`}
+              onClick={() =>
+                document.getElementById(`deleteDeckModal${deckId}`).showModal()
+              }
             >
               <Trash2 width={32} height={32} />
             </button>
           </Tooltip>
         </div>
       )}
+      <DeleteDeckModal deckId={deckId}/>
     </div>
   );
 }

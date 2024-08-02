@@ -4,6 +4,19 @@ import { isLoggedIn } from "../index.js";
 
 const prisma = new PrismaClient();
 const router = Router();
+const currentTime = () => {
+  const currentDateTime = new Date();
+  const options = {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false, //24-hour format
+  };
+  return currentDateTime.toLocaleString("en-US", options);
+};
 
 router.get("/decks/:deckId", isLoggedIn, async (req, res) => {
   const { deckId } = req.params;
@@ -324,7 +337,9 @@ router.post("/decks", isLoggedIn, async (req, res) => {
         },
       });
     }
-    console.log("new deck created: ", newDeck);
+    console.log(`[${currentTime()}]`);
+    console.log(`new deck created: ${JSON.stringify(newDeck, null, 2)}\n\n`);
+
     res.json(newDeck);
   } catch (error) {
     console.error(error);
@@ -348,7 +363,13 @@ router.delete("/decks/:deckId", isLoggedIn, async (req, res) => {
       where: {
         id: deckId,
       },
+      include: {
+        cards: true,
+      },
     });
+    console.log(`[${currentTime()}]`);
+    console.log(`deck deleted: ${JSON.stringify(deletedDeck, null, 2)}\n\n`);
+    res.json(deletedDeck);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
